@@ -175,6 +175,10 @@ $chagzmanim = chagzmanim($chagdownum, $chagerevdownum, $chagshkia, $chagdone);
     $chagprep = $chagzmanim[4];
     $havdallah = $chagzmanim[5];
     $chagmotzei = $chagzmanim[6];
+    $chagcandlemath = $chagzmanim[7];
+    $chagminchamath = $chagzmanim[8];
+    $chagarvitmath = $chagzmanim[9];
+    $chagmotzeimath = $chagzmanim[10];
 
 //print day info here
 echo "<h3>Erev Rosh Hashana - " . $chagdowname . " " . $erev . "</h3>";
@@ -191,7 +195,7 @@ echo "<h3>Erev Rosh Hashana - " . $chagdowname . " " . $erev . "</h3>";
 //end day print info
 
 if ($debug == 1) { 
-    printdebug($chagdowname, $chagdownum, $isearly, $chagnetz, $chagalot, $chagshema, $chagminchaged, $chagminchket, $chagplag, $chagshkia, $chagtzet, $latemotzei, $chagshaa, $chagmincha, $chagarvit, $chagcandles, $chagextras, $chagprep, $havdallah, $chagmotzei, $zmanurl); 
+    printdebug($chagdowname, $chagdownum, $isearly, $chagnetz, $chagalot, $chagshema, $chagminchaged, $chagminchket, $chagplag, $chagshkia, $chagtzet, $latemotzei, $chagshaa, $chagmincha, $chagarvit, $chagcandles, $chagextras, $chagprep, $havdallah, $chagmotzei, $zmanurl, $chagcandlemath, $chagminchamath, $chagarvitmath, $chagmotzeimath); 
     }
 
 //Rosh Hashana day 1 - 1 Tishrei
@@ -219,6 +223,10 @@ $chagzmanim = chagzmanim($chagdownum, $chagerevdownum, $chagshkia, $chagdone);
     $chagprep = $chagzmanim[4];
     $havdallah = $chagzmanim[5];
     $chagmotzei = $chagzmanim[6];
+    $chagcandlemath = $chagzmanim[7];
+    $chagminchamath = $chagzmanim[8];
+    $chagarvitmath = $chagzmanim[9];
+    $chagmotzeimath = $chagzmanim[10];
 
 //print day info here
 echo "<h3>Rosh Hashana 1 - " . $chagdowname . " " .  $chagdate . "</h3>";
@@ -235,7 +243,7 @@ echo "<h3>Rosh Hashana 1 - " . $chagdowname . " " .  $chagdate . "</h3>";
 //end day print info
 
 if ($debug == 1) { 
-    printdebug($chagdowname, $chagdownum, $isearly, $chagnetz, $chagalot, $chagshema, $chagminchaged, $chagminchket, $chagplag, $chagshkia, $chagtzet, $latemotzei, $chagshaa, $chagmincha, $chagarvit, $chagcandles, $chagextras, $chagprep, $havdallah, $chagmotzei, $zmanurl); 
+    printdebug($chagdowname, $chagdownum, $isearly, $chagnetz, $chagalot, $chagshema, $chagminchaged, $chagminchket, $chagplag, $chagshkia, $chagtzet, $latemotzei, $chagshaa, $chagmincha, $chagarvit, $chagcandles, $chagextras, $chagprep, $havdallah, $chagmotzei, $zmanurl, $chagcandlemath, $chagminchamath, $chagarvitmath, $chagmotzeimath); 
     }
 
 //Rosh Hashana day 2 - 2 Tishrei
@@ -264,6 +272,10 @@ $chagzmanim = chagzmanim($chagdownum, $chagerevdownum, $chagshkia, $chagdone);
     $chagprep = $chagzmanim[4];
     $havdallah = $chagzmanim[5];
     $chagmotzei = $chagzmanim[6];
+    $chagcandlemath = $chagzmanim[7];
+    $chagminchamath = $chagzmanim[8];
+    $chagarvitmath = $chagzmanim[9];
+    $chagmotzeimath = $chagzmanim[10];
 
 //print day info here
 echo "<h3>Rosh Hashana 2 - " . $chagdowname . " " . $chagdate2 . "</h3>";
@@ -280,7 +292,7 @@ echo "<h3>Rosh Hashana 2 - " . $chagdowname . " " . $chagdate2 . "</h3>";
 //end day print info
 
 if ($debug == 1) { 
-    printdebug($chagdowname, $chagdownum, $isearly, $chagnetz, $chagalot, $chagshema, $chagminchaged, $chagminchket, $chagplag, $chagshkia, $chagtzet, $latemotzei, $chagshaa, $chagmincha, $chagarvit, $chagcandles, $chagextras, $chagprep, $havdallah, $chagmotzei, $zmanurl); 
+    printdebug($chagdowname, $chagdownum, $isearly, $chagnetz, $chagalot, $chagshema, $chagminchaged, $chagminchket, $chagplag, $chagshkia, $chagtzet, $latemotzei, $chagshaa, $chagmincha, $chagarvit, $chagcandles, $chagextras, $chagprep, $havdallah, $chagmotzei, $zmanurl, $chagcandlemath, $chagminchamath, $chagarvitmath, $chagmotzeimath); 
     }
 
 //Tzom Gedalia - 3 Tishrei
@@ -310,6 +322,10 @@ $chagzmanim = chagzmanim($chagdownum, $chagerevdownum, $chagshkia, $chagdone);
     $chagprep = $chagzmanim[4];
     $havdallah = $chagzmanim[5];
     $chagmotzei = $chagzmanim[6];
+    $chagcandlemath = $chagzmanim[7];
+    $chagminchamath = $chagzmanim[8];
+    $chagarvitmath = $chagzmanim[9];
+    $chagmotzeimath = $chagzmanim[10];
 
 //print day info here
 echo "<h3>Tzom Gedalia - " . $chagdowname . " " . $chagdate3 . "</h3>";
@@ -328,7 +344,7 @@ echo "<h3>Tzom Gedalia - " . $chagdowname . " " . $chagdate3 . "</h3>";
 //end day print info
 
 if ($debug == 1) { 
-    printdebug($chagdowname, $chagdownum, $isearly, $chagnetz, $chagalot, $chagshema, $chagminchaged, $chagminchket, $chagplag, $chagshkia, $chagtzet, $latemotzei, $chagshaa, $chagmincha, $chagarvit, $chagcandles, $chagextras, $chagprep, $havdallah, $chagmotzei, $zmanurl); 
+    printdebug($chagdowname, $chagdownum, $isearly, $chagnetz, $chagalot, $chagshema, $chagminchaged, $chagminchket, $chagplag, $chagshkia, $chagtzet, $latemotzei, $chagshaa, $chagmincha, $chagarvit, $chagcandles, $chagextras, $chagprep, $havdallah, $chagmotzei, $zmanurl, $chagcandlemath, $chagminchamath, $chagarvitmath, $chagmotzeimath); 
     }
 
 //get Yom Kippur- 10 Tishrei
@@ -366,6 +382,10 @@ $chagzmanim = chagzmanim($chagdownum, $chagerevdownum, $chagshkia, $chagdone);
     $chagprep = $chagzmanim[4];
     $havdallah = $chagzmanim[5];
     $chagmotzei = $chagzmanim[6];
+    $chagcandlemath = $chagzmanim[7];
+    $chagminchamath = $chagzmanim[8];
+    $chagarvitmath = $chagzmanim[9];
+    $chagmotzeimath = $chagzmanim[10];
 
 //print day info here
 echo "<h3>Erev Yom Kippur - " . $chagdowname . " " . $erev . "</h3>";
@@ -383,7 +403,7 @@ echo "<h3>Erev Yom Kippur - " . $chagdowname . " " . $erev . "</h3>";
 //end day print info
 
 if ($debug == 1) { 
-    printdebug($chagdowname, $chagdownum, $isearly, $chagnetz, $chagalot, $chagshema, $chagminchaged, $chagminchket, $chagplag, $chagshkia, $chagtzet, $latemotzei, $chagshaa, $chagmincha, $chagarvit, $chagcandles, $chagextras, $chagprep, $havdallah, $chagmotzei, $zmanurl); 
+    printdebug($chagdowname, $chagdownum, $isearly, $chagnetz, $chagalot, $chagshema, $chagminchaged, $chagminchket, $chagplag, $chagshkia, $chagtzet, $latemotzei, $chagshaa, $chagmincha, $chagarvit, $chagcandles, $chagextras, $chagprep, $havdallah, $chagmotzei, $zmanurl, $chagcandlemath, $chagminchamath, $chagarvitmath, $chagmotzeimath); 
     }
 
 //Yom Kippur day
@@ -412,6 +432,10 @@ $chagzmanim = chagzmanim($chagdownum, $chagerevdownum, $chagshkia, $chagdone);
     $chagprep = $chagzmanim[4];
     $havdallah = $chagzmanim[5];
     $chagmotzei = $chagzmanim[6];
+    $chagcandlemath = $chagzmanim[7];
+    $chagminchamath = $chagzmanim[8];
+    $chagarvitmath = $chagzmanim[9];
+    $chagmotzeimath = $chagzmanim[10];
 
 //print day info here
 echo "<h3>Yom Kippur - " . $chagdowname . " " . $erev . "</h3>";
@@ -429,7 +453,7 @@ echo "<h3>Yom Kippur - " . $chagdowname . " " . $erev . "</h3>";
 //end day print info
 
 if ($debug == 1) { 
-    printdebug($chagdowname, $chagdownum, $isearly, $chagnetz, $chagalot, $chagshema, $chagminchaged, $chagminchket, $chagplag, $chagshkia, $chagtzet, $latemotzei, $chagshaa, $chagmincha, $chagarvit, $chagcandles, $chagextras, $chagprep, $havdallah, $chagmotzei, $zmanurl); 
+    printdebug($chagdowname, $chagdownum, $isearly, $chagnetz, $chagalot, $chagshema, $chagminchaged, $chagminchket, $chagplag, $chagshkia, $chagtzet, $latemotzei, $chagshaa, $chagmincha, $chagarvit, $chagcandles, $chagextras, $chagprep, $havdallah, $chagmotzei, $zmanurl, $chagcandlemath, $chagminchamath, $chagarvitmath, $chagmotzeimath); 
     }
 
 //get Sukkot - 15-16 Tishrei
@@ -467,6 +491,10 @@ $chagzmanim = chagzmanim($chagdownum, $chagerevdownum, $chagshkia, $chagdone);
     $chagprep = $chagzmanim[4];
     $havdallah = $chagzmanim[5];
     $chagmotzei = $chagzmanim[6];
+    $chagcandlemath = $chagzmanim[7];
+    $chagminchamath = $chagzmanim[8];
+    $chagarvitmath = $chagzmanim[9];
+    $chagmotzeimath = $chagzmanim[10];
 
 //print day info here
 echo "<h3>Erev Sukkot - " . $chagdowname . " " . $erev . "</h3>";
@@ -483,7 +511,7 @@ echo "<h3>Erev Sukkot - " . $chagdowname . " " . $erev . "</h3>";
 //end day print info
 
 if ($debug == 1) { 
-    printdebug($chagdowname, $chagdownum, $isearly, $chagnetz, $chagalot, $chagshema, $chagminchaged, $chagminchket, $chagplag, $chagshkia, $chagtzet, $latemotzei, $chagshaa, $chagmincha, $chagarvit, $chagcandles, $chagextras, $chagprep, $havdallah, $chagmotzei, $zmanurl); 
+    printdebug($chagdowname, $chagdownum, $isearly, $chagnetz, $chagalot, $chagshema, $chagminchaged, $chagminchket, $chagplag, $chagshkia, $chagtzet, $latemotzei, $chagshaa, $chagmincha, $chagarvit, $chagcandles, $chagextras, $chagprep, $havdallah, $chagmotzei, $zmanurl, $chagcandlemath, $chagminchamath, $chagarvitmath, $chagmotzeimath); 
     }
 
 //Sukkot day 1 - 15 Tishrei
@@ -511,6 +539,10 @@ $chagzmanim = chagzmanim($chagdownum, $chagerevdownum, $chagshkia, $chagdone);
     $chagprep = $chagzmanim[4];
     $havdallah = $chagzmanim[5];
     $chagmotzei = $chagzmanim[6];
+    $chagcandlemath = $chagzmanim[7];
+    $chagminchamath = $chagzmanim[8];
+    $chagarvitmath = $chagzmanim[9];
+    $chagmotzeimath = $chagzmanim[10];
 
 //print day info here
 echo "<h3>Sukkot 1 - " . $chagdowname . " " .  $chagdate . "</h3>";
@@ -527,7 +559,7 @@ echo "<h3>Sukkot 1 - " . $chagdowname . " " .  $chagdate . "</h3>";
 //end day print info
 
 if ($debug == 1) { 
-    printdebug($chagdowname, $chagdownum, $isearly, $chagnetz, $chagalot, $chagshema, $chagminchaged, $chagminchket, $chagplag, $chagshkia, $chagtzet, $latemotzei, $chagshaa, $chagmincha, $chagarvit, $chagcandles, $chagextras, $chagprep, $havdallah, $chagmotzei, $zmanurl); 
+    printdebug($chagdowname, $chagdownum, $isearly, $chagnetz, $chagalot, $chagshema, $chagminchaged, $chagminchket, $chagplag, $chagshkia, $chagtzet, $latemotzei, $chagshaa, $chagmincha, $chagarvit, $chagcandles, $chagextras, $chagprep, $havdallah, $chagmotzei, $zmanurl, $chagcandlemath, $chagminchamath, $chagarvitmath, $chagmotzeimath); 
     }
 
 //Sukkot day 2 - 16 Tishrei
@@ -556,6 +588,10 @@ $chagzmanim = chagzmanim($chagdownum, $chagerevdownum, $chagshkia, $chagdone);
     $chagprep = $chagzmanim[4];
     $havdallah = $chagzmanim[5];
     $chagmotzei = $chagzmanim[6];
+    $chagcandlemath = $chagzmanim[7];
+    $chagminchamath = $chagzmanim[8];
+    $chagarvitmath = $chagzmanim[9];
+    $chagmotzeimath = $chagzmanim[10];
 
 //print day info here
 echo "<h3>Sukkot 2 - " . $chagdowname . " " . $chagdate2 . "</h3>";
@@ -572,7 +608,7 @@ echo "<h3>Sukkot 2 - " . $chagdowname . " " . $chagdate2 . "</h3>";
 //end day print info
 
 if ($debug == 1) { 
-    printdebug($chagdowname, $chagdownum, $isearly, $chagnetz, $chagalot, $chagshema, $chagminchaged, $chagminchket, $chagplag, $chagshkia, $chagtzet, $latemotzei, $chagshaa, $chagmincha, $chagarvit, $chagcandles, $chagextras, $chagprep, $havdallah, $chagmotzei, $zmanurl); 
+    printdebug($chagdowname, $chagdownum, $isearly, $chagnetz, $chagalot, $chagshema, $chagminchaged, $chagminchket, $chagplag, $chagshkia, $chagtzet, $latemotzei, $chagshaa, $chagmincha, $chagarvit, $chagcandles, $chagextras, $chagprep, $havdallah, $chagmotzei, $zmanurl, $chagcandlemath, $chagminchamath, $chagarvitmath, $chagmotzeimath); 
     }
 
 
@@ -611,6 +647,10 @@ $chagzmanim = chagzmanim($chagdownum, $chagerevdownum, $chagshkia, $chagdone);
     $chagprep = $chagzmanim[4];
     $havdallah = $chagzmanim[5];
     $chagmotzei = $chagzmanim[6];
+    $chagcandlemath = $chagzmanim[7];
+    $chagminchamath = $chagzmanim[8];
+    $chagarvitmath = $chagzmanim[9];
+    $chagmotzeimath = $chagzmanim[10];
 
 //print day info here
 echo "<h3>Hoshana Raba - " . $chagdowname . " " . $erev . "</h3>";
@@ -627,7 +667,7 @@ echo "<h3>Hoshana Raba - " . $chagdowname . " " . $erev . "</h3>";
 //end day print info
 
 if ($debug == 1) { 
-    printdebug($chagdowname, $chagdownum, $isearly, $chagnetz, $chagalot, $chagshema, $chagminchaged, $chagminchket, $chagplag, $chagshkia, $chagtzet, $latemotzei, $chagshaa, $chagmincha, $chagarvit, $chagcandles, $chagextras, $chagprep, $havdallah, $chagmotzei, $zmanurl); 
+    printdebug($chagdowname, $chagdownum, $isearly, $chagnetz, $chagalot, $chagshema, $chagminchaged, $chagminchket, $chagplag, $chagshkia, $chagtzet, $latemotzei, $chagshaa, $chagmincha, $chagarvit, $chagcandles, $chagextras, $chagprep, $havdallah, $chagmotzei, $zmanurl, $chagcandlemath, $chagminchamath, $chagarvitmath, $chagmotzeimath); 
     }
 
 //Sukkot 8 Shmini Atzeret - 22 Tishrei
@@ -655,6 +695,10 @@ $chagzmanim = chagzmanim($chagdownum, $chagerevdownum, $chagshkia, $chagdone);
     $chagprep = $chagzmanim[4];
     $havdallah = $chagzmanim[5];
     $chagmotzei = $chagzmanim[6];
+    $chagcandlemath = $chagzmanim[7];
+    $chagminchamath = $chagzmanim[8];
+    $chagarvitmath = $chagzmanim[9];
+    $chagmotzeimath = $chagzmanim[10];
 
 //print day info here
 echo "<h3>Shmini Atzseret - " . $chagdowname . " " .  $chagdate . "</h3>";
@@ -671,7 +715,7 @@ echo "<h3>Shmini Atzseret - " . $chagdowname . " " .  $chagdate . "</h3>";
 //end day print info
 
 if ($debug == 1) { 
-    printdebug($chagdowname, $chagdownum, $isearly, $chagnetz, $chagalot, $chagshema, $chagminchaged, $chagminchket, $chagplag, $chagshkia, $chagtzet, $latemotzei, $chagshaa, $chagmincha, $chagarvit, $chagcandles, $chagextras, $chagprep, $havdallah, $chagmotzei, $zmanurl); 
+    printdebug($chagdowname, $chagdownum, $isearly, $chagnetz, $chagalot, $chagshema, $chagminchaged, $chagminchket, $chagplag, $chagshkia, $chagtzet, $latemotzei, $chagshaa, $chagmincha, $chagarvit, $chagcandles, $chagextras, $chagprep, $havdallah, $chagmotzei, $zmanurl, $chagcandlemath, $chagminchamath, $chagarvitmath, $chagmotzeimath); 
     }
 
 //Simchat Torah - 23 Tishrei
@@ -700,6 +744,10 @@ $chagzmanim = chagzmanim($chagdownum, $chagerevdownum, $chagshkia, $chagdone);
     $chagprep = $chagzmanim[4];
     $havdallah = $chagzmanim[5];
     $chagmotzei = $chagzmanim[6];
+    $chagcandlemath = $chagzmanim[7];
+    $chagminchamath = $chagzmanim[8];
+    $chagarvitmath = $chagzmanim[9];
+    $chagmotzeimath = $chagzmanim[10];
 
 //print day info here
 echo "<h3>Simchat Torah - " . $chagdowname . " " . $chagdate2 . "</h3>";
@@ -716,7 +764,7 @@ echo "<h3>Simchat Torah - " . $chagdowname . " " . $chagdate2 . "</h3>";
 //end day print info
 
 if ($debug == 1) { 
-    printdebug($chagdowname, $chagdownum, $isearly, $chagnetz, $chagalot, $chagshema, $chagminchaged, $chagminchket, $chagplag, $chagshkia, $chagtzet, $latemotzei, $chagshaa, $chagmincha, $chagarvit, $chagcandles, $chagextras, $chagprep, $havdallah, $chagmotzei, $zmanurl); 
+    printdebug($chagdowname, $chagdownum, $isearly, $chagnetz, $chagalot, $chagshema, $chagminchaged, $chagminchket, $chagplag, $chagshkia, $chagtzet, $latemotzei, $chagshaa, $chagmincha, $chagarvit, $chagcandles, $chagextras, $chagprep, $havdallah, $chagmotzei, $zmanurl, $chagcandlemath, $chagminchamath, $chagarvitmath, $chagmotzeimath); 
     }
 
 // get Asara B'Tevet 10 Tevet
@@ -752,6 +800,10 @@ $chagzmanim = chagzmanim($chagdownum, $chagerevdownum, $chagshkia, $chagdone);
     $chagprep = $chagzmanim[4];
     $havdallah = $chagzmanim[5];
     $chagmotzei = $chagzmanim[6];
+    $chagcandlemath = $chagzmanim[7];
+    $chagminchamath = $chagzmanim[8];
+    $chagarvitmath = $chagzmanim[9];
+    $chagmotzeimath = $chagzmanim[10];
 
 //print day info here
 echo "<h3>Aseret b'Tevet - " . $chagdowname . " " . $erev . "</h3>";
@@ -769,7 +821,7 @@ echo "<h3>Aseret b'Tevet - " . $chagdowname . " " . $erev . "</h3>";
 //end day print info
 
 if ($debug == 1) { 
-    printdebug($chagdowname, $chagdownum, $isearly, $chagnetz, $chagalot, $chagshema, $chagminchaged, $chagminchket, $chagplag, $chagshkia, $chagtzet, $latemotzei, $chagshaa, $chagmincha, $chagarvit, $chagcandles, $chagextras, $chagprep, $havdallah, $chagmotzei, $zmanurl); 
+    printdebug($chagdowname, $chagdownum, $isearly, $chagnetz, $chagalot, $chagshema, $chagminchaged, $chagminchket, $chagplag, $chagshkia, $chagtzet, $latemotzei, $chagshaa, $chagmincha, $chagarvit, $chagcandles, $chagextras, $chagprep, $havdallah, $chagmotzei, $zmanurl, $chagcandlemath, $chagminchamath, $chagarvitmath, $chagmotzeimath); 
     }
 
 // get Purim - 14 Adar
@@ -807,6 +859,10 @@ $chagzmanim = chagzmanim($chagdownum, $chagerevdownum, $chagshkia, $chagdone);
     $chagprep = $chagzmanim[4];
     $havdallah = $chagzmanim[5];
     $chagmotzei = $chagzmanim[6];
+    $chagcandlemath = $chagzmanim[7];
+    $chagminchamath = $chagzmanim[8];
+    $chagarvitmath = $chagzmanim[9];
+    $chagmotzeimath = $chagzmanim[10];
 
 //print day info here
 echo "<h3>Taanit Esther - " . $chagdowname . " " . $erev . "</h3>";
@@ -825,7 +881,7 @@ echo "<h3>Taanit Esther - " . $chagdowname . " " . $erev . "</h3>";
 //end day print info
 
 if ($debug == 1) { 
-    printdebug($chagdowname, $chagdownum, $isearly, $chagnetz, $chagalot, $chagshema, $chagminchaged, $chagminchket, $chagplag, $chagshkia, $chagtzet, $latemotzei, $chagshaa, $chagmincha, $chagarvit, $chagcandles, $chagextras, $chagprep, $havdallah, $chagmotzei, $zmanurl); 
+    printdebug($chagdowname, $chagdownum, $isearly, $chagnetz, $chagalot, $chagshema, $chagminchaged, $chagminchket, $chagplag, $chagshkia, $chagtzet, $latemotzei, $chagshaa, $chagmincha, $chagarvit, $chagcandles, $chagextras, $chagprep, $havdallah, $chagmotzei, $zmanurl, $chagcandlemath, $chagminchamath, $chagarvitmath, $chagmotzeimath); 
     }
 
 //Purim Day
@@ -854,6 +910,10 @@ $chagzmanim = chagzmanim($chagdownum, $chagerevdownum, $chagshkia, $chagdone);
     $chagprep = $chagzmanim[4];
     $havdallah = $chagzmanim[5];
     $chagmotzei = $chagzmanim[6];
+    $chagcandlemath = $chagzmanim[7];
+    $chagminchamath = $chagzmanim[8];
+    $chagarvitmath = $chagzmanim[9];
+    $chagmotzeimath = $chagzmanim[10];
 
 //print day info here
 echo "<h3>Purim - " . $chagdowname . " " . $erev . "</h3>";
@@ -870,7 +930,7 @@ echo "<h3>Purim - " . $chagdowname . " " . $erev . "</h3>";
 //end day print info
 
 if ($debug == 1) { 
-    printdebug($chagdowname, $chagdownum, $isearly, $chagnetz, $chagalot, $chagshema, $chagminchaged, $chagminchket, $chagplag, $chagshkia, $chagtzet, $latemotzei, $chagshaa, $chagmincha, $chagarvit, $chagcandles, $chagextras, $chagprep, $havdallah, $chagmotzei, $zmanurl); 
+    printdebug($chagdowname, $chagdownum, $isearly, $chagnetz, $chagalot, $chagshema, $chagminchaged, $chagminchket, $chagplag, $chagshkia, $chagtzet, $latemotzei, $chagshaa, $chagmincha, $chagarvit, $chagcandles, $chagextras, $chagprep, $havdallah, $chagmotzei, $zmanurl, $chagcandlemath, $chagminchamath, $chagarvitmath, $chagmotzeimath); 
     }
 
 // //Pesach 15-16 Nisan 
@@ -908,6 +968,10 @@ $chagzmanim = chagzmanim($chagdownum, $chagerevdownum, $chagshkia, $chagdone);
     $chagprep = $chagzmanim[4];
     $havdallah = $chagzmanim[5];
     $chagmotzei = $chagzmanim[6];
+    $chagcandlemath = $chagzmanim[7];
+    $chagminchamath = $chagzmanim[8];
+    $chagarvitmath = $chagzmanim[9];
+    $chagmotzeimath = $chagzmanim[10];
 
 //print day info here
 echo "<h3>Erev Pesach - " . $chagdowname . " " . $erev . "</h3>";
@@ -925,7 +989,7 @@ echo "<h3>Erev Pesach - " . $chagdowname . " " . $erev . "</h3>";
 //end day print info
 
 if ($debug == 1) { 
-    printdebug($chagdowname, $chagdownum, $isearly, $chagnetz, $chagalot, $chagshema, $chagminchaged, $chagminchket, $chagplag, $chagshkia, $chagtzet, $latemotzei, $chagshaa, $chagmincha, $chagarvit, $chagcandles, $chagextras, $chagprep, $havdallah, $chagmotzei, $zmanurl); 
+    printdebug($chagdowname, $chagdownum, $isearly, $chagnetz, $chagalot, $chagshema, $chagminchaged, $chagminchket, $chagplag, $chagshkia, $chagtzet, $latemotzei, $chagshaa, $chagmincha, $chagarvit, $chagcandles, $chagextras, $chagprep, $havdallah, $chagmotzei, $zmanurl, $chagcandlemath, $chagminchamath, $chagarvitmath, $chagmotzeimath); 
     }
 
 //Pesach 1 - 15 Nisan
@@ -953,6 +1017,10 @@ $chagzmanim = chagzmanim($chagdownum, $chagerevdownum, $chagshkia, $chagdone);
     $chagprep = $chagzmanim[4];
     $havdallah = $chagzmanim[5];
     $chagmotzei = $chagzmanim[6];
+    $chagcandlemath = $chagzmanim[7];
+    $chagminchamath = $chagzmanim[8];
+    $chagarvitmath = $chagzmanim[9];
+    $chagmotzeimath = $chagzmanim[10];
 
 //print day info here
 echo "<h3>Pesach 1 - " . $chagdowname . " " .  $chagdate . "</h3>";
@@ -969,7 +1037,7 @@ echo "<h3>Pesach 1 - " . $chagdowname . " " .  $chagdate . "</h3>";
 //end day print info
 
 if ($debug == 1) { 
-    printdebug($chagdowname, $chagdownum, $isearly, $chagnetz, $chagalot, $chagshema, $chagminchaged, $chagminchket, $chagplag, $chagshkia, $chagtzet, $latemotzei, $chagshaa, $chagmincha, $chagarvit, $chagcandles, $chagextras, $chagprep, $havdallah, $chagmotzei, $zmanurl); 
+    printdebug($chagdowname, $chagdownum, $isearly, $chagnetz, $chagalot, $chagshema, $chagminchaged, $chagminchket, $chagplag, $chagshkia, $chagtzet, $latemotzei, $chagshaa, $chagmincha, $chagarvit, $chagcandles, $chagextras, $chagprep, $havdallah, $chagmotzei, $zmanurl, $chagcandlemath, $chagminchamath, $chagarvitmath, $chagmotzeimath); 
     }
 
 //Pesach 2 - 16 Nisan
@@ -998,6 +1066,10 @@ $chagzmanim = chagzmanim($chagdownum, $chagerevdownum, $chagshkia, $chagdone);
     $chagprep = $chagzmanim[4];
     $havdallah = $chagzmanim[5];
     $chagmotzei = $chagzmanim[6];
+    $chagcandlemath = $chagzmanim[7];
+    $chagminchamath = $chagzmanim[8];
+    $chagarvitmath = $chagzmanim[9];
+    $chagmotzeimath = $chagzmanim[10];
 
 //print day info here
 echo "<h3>Pesach 2 - " . $chagdowname . " " . $chagdate2 . "</h3>";
@@ -1014,7 +1086,7 @@ echo "<h3>Pesach 2 - " . $chagdowname . " " . $chagdate2 . "</h3>";
 //end day print info
 
 if ($debug == 1) { 
-    printdebug($chagdowname, $chagdownum, $isearly, $chagnetz, $chagalot, $chagshema, $chagminchaged, $chagminchket, $chagplag, $chagshkia, $chagtzet, $latemotzei, $chagshaa, $chagmincha, $chagarvit, $chagcandles, $chagextras, $chagprep, $havdallah, $chagmotzei, $zmanurl); 
+    printdebug($chagdowname, $chagdownum, $isearly, $chagnetz, $chagalot, $chagshema, $chagminchaged, $chagminchket, $chagplag, $chagshkia, $chagtzet, $latemotzei, $chagshaa, $chagmincha, $chagarvit, $chagcandles, $chagextras, $chagprep, $havdallah, $chagmotzei, $zmanurl, $chagcandlemath, $chagminchamath, $chagarvitmath, $chagmotzeimath); 
     }
 
 
@@ -1052,6 +1124,10 @@ $chagzmanim = chagzmanim($chagdownum, $chagerevdownum, $chagshkia, $chagdone);
     $chagprep = $chagzmanim[4];
     $havdallah = $chagzmanim[5];
     $chagmotzei = $chagzmanim[6];
+    $chagcandlemath = $chagzmanim[7];
+    $chagminchamath = $chagzmanim[8];
+    $chagarvitmath = $chagzmanim[9];
+    $chagmotzeimath = $chagzmanim[10];
 
 //print day info here
 echo "<h3>Erev Pesach VII - " . $chagdowname . " " . $erev . "</h3>";
@@ -1068,7 +1144,7 @@ echo "<h3>Erev Pesach VII - " . $chagdowname . " " . $erev . "</h3>";
 //end day print info
 
 if ($debug == 1) { 
-    printdebug($chagdowname, $chagdownum, $isearly, $chagnetz, $chagalot, $chagshema, $chagminchaged, $chagminchket, $chagplag, $chagshkia, $chagtzet, $latemotzei, $chagshaa, $chagmincha, $chagarvit, $chagcandles, $chagextras, $chagprep, $havdallah, $chagmotzei, $zmanurl); 
+    printdebug($chagdowname, $chagdownum, $isearly, $chagnetz, $chagalot, $chagshema, $chagminchaged, $chagminchket, $chagplag, $chagshkia, $chagtzet, $latemotzei, $chagshaa, $chagmincha, $chagarvit, $chagcandles, $chagextras, $chagprep, $havdallah, $chagmotzei, $zmanurl, $chagcandlemath, $chagminchamath, $chagarvitmath, $chagmotzeimath); 
     }
 
 //Pesach VII - 21 Nisan
@@ -1096,6 +1172,10 @@ $chagzmanim = chagzmanim($chagdownum, $chagerevdownum, $chagshkia, $chagdone);
     $chagprep = $chagzmanim[4];
     $havdallah = $chagzmanim[5];
     $chagmotzei = $chagzmanim[6];
+    $chagcandlemath = $chagzmanim[7];
+    $chagminchamath = $chagzmanim[8];
+    $chagarvitmath = $chagzmanim[9];
+    $chagmotzeimath = $chagzmanim[10];
 
 //print day info here
 echo "<h3>Pesach VII - " . $chagdowname . " " .  $chagdate . "</h3>";
@@ -1112,7 +1192,7 @@ echo "<h3>Pesach VII - " . $chagdowname . " " .  $chagdate . "</h3>";
 //end day print info
 
 if ($debug == 1) { 
-    printdebug($chagdowname, $chagdownum, $isearly, $chagnetz, $chagalot, $chagshema, $chagminchaged, $chagminchket, $chagplag, $chagshkia, $chagtzet, $latemotzei, $chagshaa, $chagmincha, $chagarvit, $chagcandles, $chagextras, $chagprep, $havdallah, $chagmotzei, $zmanurl); 
+    printdebug($chagdowname, $chagdownum, $isearly, $chagnetz, $chagalot, $chagshema, $chagminchaged, $chagminchket, $chagplag, $chagshkia, $chagtzet, $latemotzei, $chagshaa, $chagmincha, $chagarvit, $chagcandles, $chagextras, $chagprep, $havdallah, $chagmotzei, $zmanurl, $chagcandlemath, $chagminchamath, $chagarvitmath, $chagmotzeimath); 
     }
 
 //Pesach VIII - 22 Nisan
@@ -1141,6 +1221,10 @@ $chagzmanim = chagzmanim($chagdownum, $chagerevdownum, $chagshkia, $chagdone);
     $chagprep = $chagzmanim[4];
     $havdallah = $chagzmanim[5];
     $chagmotzei = $chagzmanim[6];
+    $chagcandlemath = $chagzmanim[7];
+    $chagminchamath = $chagzmanim[8];
+    $chagarvitmath = $chagzmanim[9];
+    $chagmotzeimath = $chagzmanim[10];
 
 //print day info here
 echo "<h3>Pesach VIII - " . $chagdowname . " " . $chagdate2 . "</h3>";
@@ -1157,7 +1241,7 @@ echo "<h3>Pesach VIII - " . $chagdowname . " " . $chagdate2 . "</h3>";
 //end day print info
 
 if ($debug == 1) { 
-    printdebug($chagdowname, $chagdownum, $isearly, $chagnetz, $chagalot, $chagshema, $chagminchaged, $chagminchket, $chagplag, $chagshkia, $chagtzet, $latemotzei, $chagshaa, $chagmincha, $chagarvit, $chagcandles, $chagextras, $chagprep, $havdallah, $chagmotzei, $zmanurl); 
+    printdebug($chagdowname, $chagdownum, $isearly, $chagnetz, $chagalot, $chagshema, $chagminchaged, $chagminchket, $chagplag, $chagshkia, $chagtzet, $latemotzei, $chagshaa, $chagmincha, $chagarvit, $chagcandles, $chagextras, $chagprep, $havdallah, $chagmotzei, $zmanurl, $chagcandlemath, $chagminchamath, $chagarvitmath, $chagmotzeimath); 
     }
 
 // // get Shavuot 6-7 Sivan
@@ -1194,6 +1278,10 @@ $chagzmanim = chagzmanim($chagdownum, $chagerevdownum, $chagshkia, $chagdone);
     $chagprep = $chagzmanim[4];
     $havdallah = $chagzmanim[5];
     $chagmotzei = $chagzmanim[6];
+    $chagcandlemath = $chagzmanim[7];
+    $chagminchamath = $chagzmanim[8];
+    $chagarvitmath = $chagzmanim[9];
+    $chagmotzeimath = $chagzmanim[10];
 
 //print day info here
 echo "<h3>Erev Shavuot - " . $chagdowname . " " . $erev . "</h3>";
@@ -1210,7 +1298,7 @@ echo "<h3>Erev Shavuot - " . $chagdowname . " " . $erev . "</h3>";
 //end day print info
 
 if ($debug == 1) { 
-    printdebug($chagdowname, $chagdownum, $isearly, $chagnetz, $chagalot, $chagshema, $chagminchaged, $chagminchket, $chagplag, $chagshkia, $chagtzet, $latemotzei, $chagshaa, $chagmincha, $chagarvit, $chagcandles, $chagextras, $chagprep, $havdallah, $chagmotzei, $zmanurl); 
+    printdebug($chagdowname, $chagdownum, $isearly, $chagnetz, $chagalot, $chagshema, $chagminchaged, $chagminchket, $chagplag, $chagshkia, $chagtzet, $latemotzei, $chagshaa, $chagmincha, $chagarvit, $chagcandles, $chagextras, $chagprep, $havdallah, $chagmotzei, $zmanurl, $chagcandlemath, $chagminchamath, $chagarvitmath, $chagmotzeimath); 
     }
 
 //Shavuot 1 - 6 Sivan
@@ -1238,6 +1326,10 @@ $chagzmanim = chagzmanim($chagdownum, $chagerevdownum, $chagshkia, $chagdone);
     $chagprep = $chagzmanim[4];
     $havdallah = $chagzmanim[5];
     $chagmotzei = $chagzmanim[6];
+    $chagcandlemath = $chagzmanim[7];
+    $chagminchamath = $chagzmanim[8];
+    $chagarvitmath = $chagzmanim[9];
+    $chagmotzeimath = $chagzmanim[10];
 
 //print day info here
 echo "<h3>Shavuot 1 - " . $chagdowname . " " .  $chagdate . "</h3>";
@@ -1254,7 +1346,7 @@ echo "<h3>Shavuot 1 - " . $chagdowname . " " .  $chagdate . "</h3>";
 //end day print info
 
 if ($debug == 1) { 
-    printdebug($chagdowname, $chagdownum, $isearly, $chagnetz, $chagalot, $chagshema, $chagminchaged, $chagminchket, $chagplag, $chagshkia, $chagtzet, $latemotzei, $chagshaa, $chagmincha, $chagarvit, $chagcandles, $chagextras, $chagprep, $havdallah, $chagmotzei, $zmanurl); 
+    printdebug($chagdowname, $chagdownum, $isearly, $chagnetz, $chagalot, $chagshema, $chagminchaged, $chagminchket, $chagplag, $chagshkia, $chagtzet, $latemotzei, $chagshaa, $chagmincha, $chagarvit, $chagcandles, $chagextras, $chagprep, $havdallah, $chagmotzei, $zmanurl, $chagcandlemath, $chagminchamath, $chagarvitmath, $chagmotzeimath); 
     }
 
 //Shavuot 2 - 7 Sivan
@@ -1283,6 +1375,10 @@ $chagzmanim = chagzmanim($chagdownum, $chagerevdownum, $chagshkia, $chagdone);
     $chagprep = $chagzmanim[4];
     $havdallah = $chagzmanim[5];
     $chagmotzei = $chagzmanim[6];
+    $chagcandlemath = $chagzmanim[7];
+    $chagminchamath = $chagzmanim[8];
+    $chagarvitmath = $chagzmanim[9];
+    $chagmotzeimath = $chagzmanim[10];
 
 //print day info here
 echo "<h3>Pesach 2 - " . $chagdowname . " " . $chagdate2 . "</h3>";
@@ -1299,7 +1395,7 @@ echo "<h3>Pesach 2 - " . $chagdowname . " " . $chagdate2 . "</h3>";
 //end day print info
 
 if ($debug == 1) { 
-    printdebug($chagdowname, $chagdownum, $isearly, $chagnetz, $chagalot, $chagshema, $chagminchaged, $chagminchket, $chagplag, $chagshkia, $chagtzet, $latemotzei, $chagshaa, $chagmincha, $chagarvit, $chagcandles, $chagextras, $chagprep, $havdallah, $chagmotzei, $zmanurl); 
+    printdebug($chagdowname, $chagdownum, $isearly, $chagnetz, $chagalot, $chagshema, $chagminchaged, $chagminchket, $chagplag, $chagshkia, $chagtzet, $latemotzei, $chagshaa, $chagmincha, $chagarvit, $chagcandles, $chagextras, $chagprep, $havdallah, $chagmotzei, $zmanurl, $chagcandlemath, $chagminchamath, $chagarvitmath, $chagmotzeimath); 
     }
 
 // // get Tzom Tamuz - 17 Tamuz
@@ -1334,6 +1430,10 @@ $chagzmanim = chagzmanim($chagdownum, $chagerevdownum, $chagshkia, $chagdone);
     $chagprep = $chagzmanim[4];
     $havdallah = $chagzmanim[5];
     $chagmotzei = $chagzmanim[6];
+    $chagcandlemath = $chagzmanim[7];
+    $chagminchamath = $chagzmanim[8];
+    $chagarvitmath = $chagzmanim[9];
+    $chagmotzeimath = $chagzmanim[10];
 
 //print day info here
 echo "<h3>Tzom Tammuz - " . $chagdowname . " " . $chagdate . "</h3>";
@@ -1352,7 +1452,7 @@ echo "<h3>Tzom Tammuz - " . $chagdowname . " " . $chagdate . "</h3>";
 //end day print info
 
 if ($debug == 1) { 
-    printdebug($chagdowname, $chagdownum, $isearly, $chagnetz, $chagalot, $chagshema, $chagminchaged, $chagminchket, $chagplag, $chagshkia, $chagtzet, $latemotzei, $chagshaa, $chagmincha, $chagarvit, $chagcandles, $chagextras, $chagprep, $havdallah, $chagmotzei, $zmanurl); 
+    printdebug($chagdowname, $chagdownum, $isearly, $chagnetz, $chagalot, $chagshema, $chagminchaged, $chagminchket, $chagplag, $chagshkia, $chagtzet, $latemotzei, $chagshaa, $chagmincha, $chagarvit, $chagcandles, $chagextras, $chagprep, $havdallah, $chagmotzei, $zmanurl, $chagcandlemath, $chagminchamath, $chagarvitmath, $chagmotzeimath); 
     }
 
 // // get Tisha B'av - 9 Av
@@ -1390,6 +1490,10 @@ $chagzmanim = chagzmanim($chagdownum, $chagerevdownum, $chagshkia, $chagdone);
     $chagprep = $chagzmanim[4];
     $havdallah = $chagzmanim[5];
     $chagmotzei = $chagzmanim[6];
+    $chagcandlemath = $chagzmanim[7];
+    $chagminchamath = $chagzmanim[8];
+    $chagarvitmath = $chagzmanim[9];
+    $chagmotzeimath = $chagzmanim[10];
 
 //print day info here
 echo "<h3>Erev Tisha B'Av - " . $chagdowname . " " . $erev . "</h3>";
@@ -1407,7 +1511,7 @@ echo "<h3>Erev Tisha B'Av - " . $chagdowname . " " . $erev . "</h3>";
 //end day print info
 
 if ($debug == 1) { 
-    printdebug($chagdowname, $chagdownum, $isearly, $chagnetz, $chagalot, $chagshema, $chagminchaged, $chagminchket, $chagplag, $chagshkia, $chagtzet, $latemotzei, $chagshaa, $chagmincha, $chagarvit, $chagcandles, $chagextras, $chagprep, $havdallah, $chagmotzei, $zmanurl); 
+    printdebug($chagdowname, $chagdownum, $isearly, $chagnetz, $chagalot, $chagshema, $chagminchaged, $chagminchket, $chagplag, $chagshkia, $chagtzet, $latemotzei, $chagshaa, $chagmincha, $chagarvit, $chagcandles, $chagextras, $chagprep, $havdallah, $chagmotzei, $zmanurl, $chagcandlemath, $chagminchamath, $chagarvitmath, $chagmotzeimath); 
     }
 
 //Tisha B'Av day - 9 Av
@@ -1436,6 +1540,10 @@ $chagzmanim = chagzmanim($chagdownum, $chagerevdownum, $chagshkia, $chagdone);
     $chagprep = $chagzmanim[4];
     $havdallah = $chagzmanim[5];
     $chagmotzei = $chagzmanim[6];
+    $chagcandlemath = $chagzmanim[7];
+    $chagminchamath = $chagzmanim[8];
+    $chagarvitmath = $chagzmanim[9];
+    $chagmotzeimath = $chagzmanim[10];
 
 //print day info here
 echo "<h3>Tisha B'Av - " . $chagdowname . " " . $erev . "</h3>";
@@ -1453,9 +1561,8 @@ echo "<h3>Tisha B'Av - " . $chagdowname . " " . $erev . "</h3>";
 //end day print info
 
 if ($debug == 1) { 
-    printdebug($chagdowname, $chagdownum, $isearly, $chagnetz, $chagalot, $chagshema, $chagminchaged, $chagminchket, $chagplag, $chagshkia, $chagtzet, $latemotzei, $chagshaa, $chagmincha, $chagarvit, $chagcandles, $chagextras, $chagprep, $havdallah, $chagmotzei, $zmanurl); 
+    printdebug($chagdowname, $chagdownum, $isearly, $chagnetz, $chagalot, $chagshema, $chagminchaged, $chagminchket, $chagplag, $chagshkia, $chagtzet, $latemotzei, $chagshaa, $chagmincha, $chagarvit, $chagcandles, $chagextras, $chagprep, $havdallah, $chagmotzei, $zmanurl, $chagcandlemath, $chagminchamath, $chagarvitmath, $chagmotzeimath); 
     }
-
 
 //close out the web page
 echo "</table>
@@ -1507,22 +1614,24 @@ if(strtotime($chagshkia) <= strtotime("7:35pm")) {
     // Plag Hamincha ("plag") = mincha ketana+((tzet - mincha ketana) / 2)
         $chagplag = date('g:ia', strtotime($chagminchket)+(((strtotime($chagtzet))-strtotime($chagminchket))/2));
 
-//$stuff = "$candles, $frisunset, $frimincha, $satmincha, $satsunset, $satarvit, $sattzet, $latemotzei<br>";
 return [$chagdownum, $chagdowname, $chagnetz, $chagshkia, $chagtzet, $latemotzei, $chagalot, $chagshaa, $chagminchaged, $chagminchket, $chagshema, $chagplag, $isearly];
-
 }
 
 function chagzmanim($chagdownum, $chagerevdownum, $chagshkia, $chagdone) {
 // set defaults
     $chagmincha = date('g:ia', strtotime( $chagshkia . " -20 minutes"));
+    $chagminchamath = "shkia-20";
     $chagarvit = "to follow";
     $chagcandles = date('g:ia', strtotime( $chagshkia . " -18 minutes"));
+    $chagcandlemath = "shkia-18";
     $chagextras = "";
     $chagprep = "";
     if ($chagdone == 1) {
         $chagarvit = date('g:ia', strtotime( $chagshkia . " +30 minutes"));
+        $chagarvitmath = "shkia+30";
         $havdallah = "wine and hamavdil";
         $chagmotzei = date('g:ia', strtotime( $chagshkia . " +45 minutes"));
+        $chagmotzeimath = "shkia+45";
     }
 
 //if erev is Wednesday
@@ -1532,6 +1641,7 @@ if ($chagerevdownum == 4) {
     }
     if ($chagdownum == 5) {
         $chagcandles = date('g:ia', strtotime( $chagshkia . " +45 minutes"));
+        $chagcandlemath = "shkia+45";
         $chagprep = "Preparations no earlier than " . $chagcandles;
     }
     if ($chagdownum == 6) {
@@ -1546,12 +1656,15 @@ if ($chagerevdownum == 5) {
     }
     if ($chagdownum == 6) {
         $chagcandles = date('g:ia', strtotime( $chagshkia . " +45 minutes"));
+        $chagcandlemath = "shkia+45";
         $chagprep = "Preparations no earlier than " . $chagcandles;
     }
     if ($chagdownum == 7) {
         $chagarvit = date('g:ia', strtotime( $chagshkia . " +50 minutes"));
+        $chagarvitmath = "shkia+50";
         $chagprep = "Preparations no earlier than " . $chagcandles;
         $chagmotzei = date('g:ia', strtotime( $chagshkia . " +50 minutes")) . " / " . date('g:ia', strtotime( $chagshkia . " +72 minutes"));
+        $chagmotzeimath = "shkia+50/72";
     }
 }
 //if erev is Friday
@@ -1560,8 +1673,10 @@ if ($chagerevdownum == 6) {
     }
     if ($chagdownum == 7) {
         $chagmincha = date('g:ia' , strtotime("2:30pm"));
+        $chagminchamath = "2:30pm";
         $havdallah = "said in kiddush";
         $chagcandles = $chagcandles = date('g:ia', strtotime( $chagshkia . " +50 minutes")) . " / " . date('g:ia', strtotime( $chagshkia . " +72 minutes"));
+        $chagcandlemath = "shkia+50/72";
         $chagprep = "Preparations no earlier than " . $chagcandles = date('g:ia', strtotime( $chagshkia . " +50 minutes")) . " / " . date('g:ia', strtotime( $chagshkia . " +72 minutes"));
     }
     if ($chagdownum == 0) {
@@ -1578,10 +1693,12 @@ if ($chagerevdownum == 7) {
     }
 }
 //OTHERWISE
-return [$chagmincha, $chagarvit, $chagcandles, $chagextras, $chagprep, $havdallah, $chagmotzei];
+return [$chagmincha, $chagarvit, $chagcandles, $chagextras, $chagprep, $havdallah, $chagmotzei, $chagcandlemath, $chagminchamath, $chagarvitmath, $chagmotzeimath];
 }
 
-function printdebug($chagdowname, $chagdownum, $isearly, $chagnetz, $chagalot, $chagshema, $chagminchaged, $chagminchket, $chagplag, $chagshkia, $chagtzet, $latemotzei, $chagshaa, $chagmincha, $chagarvit, $chagcandles, $chagextras, $chagprep, $havdallah, $chagmotzei, $zmanurl) {
+function printdebug($chagdowname, $chagdownum, $isearly, $chagnetz, $chagalot, $chagshema, $chagminchaged, $chagminchket, $chagplag, $chagshkia, $chagtzet, $latemotzei, $chagshaa, $chagmincha, $chagarvit, $chagcandles, $chagextras, $chagprep, $havdallah, $chagmotzei, $zmanurl, $chagcandlemath, $chagminchamath, $chagarvitmath, $chagmotzeimath) {
+    echo "*********************************<br>";
+    echo "<h1>Debug and Detailed information</h3><br>";
     echo "zmanurl:" . $zmanurl . "<br/>";
     echo "Day: " . $chagdowname . "<br/>";
     echo "Day #: " . $chagdownum . "<br/>";
@@ -1596,15 +1713,14 @@ function printdebug($chagdowname, $chagdownum, $isearly, $chagnetz, $chagalot, $
     echo "Tzeit haKochavim: " . $chagtzet . "<br/>";
     echo "Motzei late: " . $latemotzei . "<br/>";
     echo "Sha'a: " . $chagshaa . "<br/>";
-    echo "chagmincha: " . $chagmincha . "<br/>";
-    echo "chagarvit: " . $chagarvit . "<br/>";
-    echo "chagcandles: " . $chagcandles . "<br/>";
+    echo "chagmincha: " . $chagmincha . " (". $chagminchamath . ")<br/>";
+    echo "chagarvit: " . $chagarvit . " (". $chagarvitmath . ")<br/>";
+    echo "chagcandles: " . $chagcandles . " (". $chagcandlemath . ")<br/>";
     echo "chagextras: " . $chagextras . "<br/>";
     echo "chagprep: " . $chagprep . "<br/>";
     echo "havdallah: " . $havdallah . "<br/>";
-    echo "chagmotzei: " . $chagmotzei . "<br/>";
+    echo "chagmotzei: " . $chagmotzei . " (". $chagmotzeimath . ")<br/>";
 }
-
 
 function callAPI($method, $url, $data){
    $curl = curl_init();
@@ -1637,26 +1753,4 @@ function callAPI($method, $url, $data){
    curl_close($curl);
    return $result;
 }
-
 ?>
-
-<!-- 
-
-
-Shavuot 1 - 6 Sivan
-    Get day 1 and DOW
-    calc erev date and DOW
-    calc day 2 date and DOW - 7 Sivan
-
-Tzom Tammuz - 17 Tamuz
-    Get day 1 and DOW
-        fast start
-        fast end
-
-Tisha B'av - 9 Av
-    Get day 1 and DOW
-        fast end
-    calc erev date and DOW
-        fast start
-
- -->
