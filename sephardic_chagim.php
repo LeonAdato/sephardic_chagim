@@ -63,7 +63,7 @@ if ($country){
     }
 }
 if ($address) {
-    $address = htmlspecialchars($address);
+   $address = htmlspecialchars($address);
    $address = stripslashes($address);
    $address = trim($address);
 }
@@ -86,7 +86,6 @@ if ($debug == 1 || $debug == 0) {
     echo("<H2>Debug must be 0 or 1</h2>\n");
     exit(1);
 }
-
 
 //set location
 if ($zipcode != "") {
@@ -141,24 +140,25 @@ echo "<!DOCTYPE html>
 <P>";
 
 //get Rosh Hashana- 1-2 Tishrei
-$monthname = "Tishrei";
-$daynum = "01";
-$zmanurl = "https://www.hebcal.com/converter?cfg=json&hy=$hebyear&hm=$monthname&hd=$daynum&h2g=1";
-$get_zmanim = callAPI('GET', $zmanurl, false);
-$zmanresponse = json_decode($get_zmanim, true);
-$chagdate = date('Y-m-d', mktime(0,0,0,$zmanresponse['gm'],$zmanresponse['gd'],$zmanresponse['gy']));
-//get times
-//Erev is chagdate - 1
-$erev = date('Y-m-d', strtotime( $chagdate . " -1 days"));
-$chagdone = 0;
-$chaginfo = getzmanim($erev, $latitude, $longitude, $geostring, $tzid);
-    $chagerevdownum = $chaginfo[0];
-$chagzmanim = chagzmanim($chaginfo[0], $chagerevdownum, $chaginfo[3], $chagdone);
+$monthname = "Elul";
+$daynum = "29";
+//dayseq 0 = erev, 1=1st day, 2=2nd day, 3=3rd day
+$dayseq = 0;
+$times = gettimes($hebyear-1, $monthname, $daynum, $dayseq, $latitude, $longitude, $geostring, $tzid);
+$chagdate = $times[0];
+$chaginfo = $times[1];
+$chagzmanim = $times[2];
+$zmanurl = $times[3];
 
 //print day info here
-echo "<h3>Erev Rosh Hashana - " . $chaginfo[1] . " " . $erev . "</h3>";
+if ($debug == 1) { 
+    printdebug($chaginfo, $chagzmanim, $zmanurl); 
+    }
+
+echo "<h3>Erev Rosh Hashana - " . $chaginfo[1] . " " . $times[0] . "</h3>";
     echo "Netz: " . $chaginfo[2] . "<br/>";
-    echo "Sof Zman Kria Shema: " . $$chaginfo[10] . "<br/>";
+    echo "Sof Kria Shema: " . $chaginfo[10] . "<br/>";
+    echo "Ashrei: " . $chagzmanim[2] . "<br/>";    
     echo "Mincha: " . $chagzmanim[0] . "<br/>";
     echo "Arvit: " . $chagzmanim[1] . "<br/>";
     echo "Candles: " . $chagzmanim[2] . "<br/>";
@@ -168,23 +168,29 @@ echo "<h3>Erev Rosh Hashana - " . $chaginfo[1] . " " . $erev . "</h3>";
     echo "Shkia: " . $chaginfo[3] . "<br/>";
     if ($chagzmanim[6]) {echo "Motzei Chag: " . $chagzmanim[6] . "<br/>";}
 //end day print info
-
-if ($debug == 1) { 
-    printdebug($chaginfo, $chagzmanim, $zmanurl); 
-    }
 
 //Rosh Hashana day 1 - 1 Tishrei
-$chagdone = 0;    
-$chaginfo = getzmanim($chagdate, $latitude, $longitude, $geostring, $tzid);
-$chagzmanim = chagzmanim($chagdownum, $chagerevdownum, $chagshkia, $chagdone);
+$monthname = "Tishrei";
+$daynum = "01";
+//dayseq 0 = erev, 1=1st day, 2=2nd day, 3=3rd day
+$dayseq = 1;
+$times = gettimes($hebyear, $monthname, $daynum, $dayseq, $latitude, $longitude, $geostring, $tzid);
+$chagdate = $times[0];
+$chaginfo = $times[1];
+$chagzmanim = $times[2];
 
 //print day info here
+if ($debug == 1) { 
+    printdebug($chaginfo, $chagzmanim, $zmanurl); 
+    }
+
 echo "<h3>Rosh Hashana 1 - " . $chaginfo[1] . " " .  $chagdate . "</h3>";
     echo "Netz: " . $chaginfo[2] . "<br/>";
-    echo "Sof Zman Kria Shema: " . $$chaginfo[10] . "<br/>";
+    echo "Sof Kria Shema: " . $chaginfo[10] . "<br/>";
     echo "Mincha: " . $chagzmanim[0] . "<br/>";
+    echo "Ashrei: " . $chagzmanim[2] . "<br/>";    
     echo "Arvit: " . $chagzmanim[1] . "<br/>";
-    echo "Candles: " . $chagzmanim[2] . "<br/>";
+//    echo "Candles: " . $chagzmanim[2] . "<br/>";
     if ($chagzmanim[4]) {echo "Preparation: " . $chagzmanim[4] . "<br/>";}
     if ($chagzmanim[3]) {echo "Notes: " . $chagzmanim[3] . "<br/>";}
     if ($chagzmanim[5]) {echo "Havdallah: " . $chagzmanim[5] . "<br/>";}
@@ -192,20 +198,26 @@ echo "<h3>Rosh Hashana 1 - " . $chaginfo[1] . " " .  $chagdate . "</h3>";
     if ($chagzmanim[6]) {echo "Motzei Chag: " . $chagzmanim[6] . "<br/>";}
 //end day print info
 
+//Rosh Hashana day 2 - 2 Tishrei
+$monthname = "Tishrei";
+$daynum = "02";
+//dayseq 0 = erev, 1=1st day, 2=2nd day, 3=3rd day
+$dayseq = 2;
+$times = gettimes($hebyear, $monthname, $daynum, $dayseq, $latitude, $longitude, $geostring, $tzid);
+$chagdate = $times[0];
+$chaginfo = $times[1];
+$chagzmanim = $times[2];
+$zmanurl = $times[3];
+
+//print day info here
 if ($debug == 1) { 
     printdebug($chaginfo, $chagzmanim, $zmanurl); 
     }
 
-//Rosh Hashana day 2 - 2 Tishrei
-$chagdate2 = date('Y-m-d', strtotime( $chagdate . " +1 days"));
-$chagdone = 1;
-$chaginfo = getzmanim($chagdate2, $latitude, $longitude, $geostring, $tzid);
-$chagzmanim = chagzmanim($chagdownum, $chagerevdownum, $chagshkia, $chagdone);
-
-//print day info here
-echo "<h3>Rosh Hashana 2 - " . $chaginfo[1] . " " . $chagdate2 . "</h3>";
+echo "<h3>Rosh Hashana 2 - " . $chaginfo[1] . " " . $chagdate . "</h3>";
     echo "Netz: " . $chaginfo[2] . "<br/>";
-    echo "Sof Zman Kria Shema: " . $$chaginfo[10] . "<br/>";
+    echo "Sof Kria Shema: " . $chaginfo[10] . "<br/>";
+    echo "Ashrei: " . $chagzmanim[2] . "<br/>";
     echo "Mincha: " . $chagzmanim[0] . "<br/>";
     echo "Arvit: " . $chagzmanim[1] . "<br/>";
 //    echo "Candles: " . $chagzmanim[2] . "<br/>";
@@ -216,21 +228,27 @@ echo "<h3>Rosh Hashana 2 - " . $chaginfo[1] . " " . $chagdate2 . "</h3>";
     if ($chagzmanim[6]) {echo "Motzei Chag: " . $chagzmanim[6] . "<br/>";}
 //end day print info
 
+//Tzom Gedalia - 3 Tishrei
+$monthname = "Tishrei";
+$daynum = "03";
+//dayseq 0 = erev, 1=1st day, 2=2nd day, 3=3rd day
+$dayseq = 3;
+$times = gettimes($hebyear, $monthname, $daynum, $dayseq, $latitude, $longitude, $geostring, $tzid);
+$chagdate = $times[0];
+$chaginfo = $times[1];
+$chagzmanim = $times[2];
+$zmanurl = $times[3];
+
+//print day info here
 if ($debug == 1) { 
     printdebug($chaginfo, $chagzmanim, $zmanurl); 
     }
 
-//Tzom Gedalia - 3 Tishrei
-$chagdate3 = date('Y-m-d', strtotime( $chagdate . " +2 days"));
-$chagdone = 0;
-$chaginfo = getzmanim($chagdate3, $latitude, $longitude, $geostring, $tzid);
-$chagzmanim = chagzmanim($chagdownum, $chagerevdownum, $chagshkia, $chagdone);
-
-//print day info here
-echo "<h3>Tzom Gedalia - " . $chaginfo[1] . " " . $chagdate3 . "</h3>";
+echo "<h3>Tzom Gedalia - " . $chaginfo[1] . " " . $chagdate . "</h3>";
     echo "Fast begins: " . $chaginfo[6] . "<br>";
     echo "Netz: " . $chaginfo[2] . "<br/>";
-    echo "Sof Zman Kria Shema: " . $$chaginfo[10] . "<br/>";
+    echo "Sof Kria Shema: " . $chaginfo[10] . "<br/>";
+    echo "Ashrei: " . $chagzmanim[2] . "<br/>";    
     echo "Mincha: " . $chagzmanim[0] . "<br/>";
     echo "Arvit: " . $chagzmanim[1] . "<br/>";
     //echo "Candles: " . $chagzmanim[2] . "<br/>";
@@ -242,32 +260,26 @@ echo "<h3>Tzom Gedalia - " . $chaginfo[1] . " " . $chagdate3 . "</h3>";
     if ($chagzmanim[6]) {echo "Motzei Chag: " . $chagzmanim[6] . "<br/>";}
 //end day print info
 
+//get Yom Kippur- 10 Tishrei
+$monthname = "Tishrei";
+$daynum = "09";
+//dayseq 0 = erev, 1=1st day, 2=2nd day, 3=3rd day
+$dayseq = 0;
+$times = gettimes($hebyear, $monthname, $daynum, $dayseq, $latitude, $longitude, $geostring, $tzid);
+$chagdate = $times[0];
+$chaginfo = $times[1];
+$chagzmanim = $times[2];
+$zmanurl = $times[3];
+
+//print day info here
 if ($debug == 1) { 
     printdebug($chaginfo, $chagzmanim, $zmanurl); 
     }
 
-    //echo "Candles: " . $chagcandles . "<br/>";
-
-//get Yom Kippur- 10 Tishrei
-$monthname = "Tishrei";
-$daynum = "10";
-$zmanurl = "https://www.hebcal.com/converter?cfg=json&hy=$hebyear&hm=$monthname&hd=$daynum&h2g=1";
-$get_zmanim = callAPI('GET', $zmanurl, false);
-$zmanresponse = json_decode($get_zmanim, true);
-$chagdate = date('Y-m-d', mktime(0,0,0,$zmanresponse['gm'],$zmanresponse['gd'],$zmanresponse['gy']));    
-//Erev is chagdate - 1
-$erev = date('Y-m-d', strtotime( $chagdate . " -1 days"));
-//get times
-$chagdone = 0;
-$chaginfo = getzmanim($erev, $latitude, $longitude, $geostring, $tzid);
-    $chagerevdownum = $chaginfo[0];
-$chagzmanim = chagzmanim($chaginfo[0], $chagerevdownum, $chaginfo[3], $chagdone);
-
-//print day info here
-echo "<h3>Erev Yom Kippur - " . $chaginfo[1] . " " . $erev . "</h3>";
-    echo "Fast begins: " . $chaginfo[6] . "<br>";
+echo "<h3>Erev Yom Kippur - " . $chaginfo[1] . " " . $chagdate . "</h3>";
     echo "Netz: " . $chaginfo[2] . "<br/>";
-    echo "Sof Zman Kria Shema: " . $$chaginfo[10] . "<br/>";
+    echo "Sof Kria Shema: " . $chaginfo[10] . "<br/>";
+    echo "Ashrei: " . $chagzmanim[2] . "<br/>";
     echo "Mincha: " . $chagzmanim[0] . "<br/>";
     echo "Arvit: " . $chagzmanim[1] . "<br/>";
     echo "Candles: " . $chagzmanim[2] . "<br/>";
@@ -279,25 +291,30 @@ echo "<h3>Erev Yom Kippur - " . $chaginfo[1] . " " . $erev . "</h3>";
     if ($chagzmanim[6]) {echo "Motzei Chag: " . $chagzmanim[6] . "<br/>";}
 //end day print info
 
+//Yom Kippur day
+$monthname = "Tishrei";
+$daynum = "10";
+//dayseq 0 = erev, 1=1st day, 2=2nd day, 3=3rd day
+$dayseq = 1;
+$times = gettimes($hebyear, $monthname, $daynum, $dayseq, $latitude, $longitude, $geostring, $tzid);
+$chagdate = $times[0];
+$chaginfo = $times[1];
+$chagzmanim = $times[2];
+$zmanurl = $times[3];
+
+//print day info here
 if ($debug == 1) { 
     printdebug($chaginfo, $chagzmanim, $zmanurl); 
     }
 
-//Yom Kippur day
-//get times
-$chagdone = 1;
-$chaginfo = getzmanim($chagdate, $latitude, $longitude, $geostring, $tzid);
-$chagzmanim = chagzmanim($chagdownum, $chagerevdownum, $chagshkia, $chagdone);
-
-//print day info here
-echo "<h3>Yom Kippur - " . $chaginfo[1] . " " . $erev . "</h3>";
-    echo "Fast begins: " . $chaginfo[6] . "<br>";
+echo "<h3>Yom Kippur - " . $chaginfo[1] . " " . $chagdate . "</h3>";
     echo "Netz: " . $chaginfo[2] . "<br/>";
-    echo "Sof Zman Kria Shema: " . $$chaginfo[10] . "<br/>";
+    echo "Sof Kria Shema: " . $chaginfo[10] . "<br/>";
+    echo "Ashrei: " . $chagzmanim[2] . "<br/>";
     echo "Mincha: " . $chagzmanim[0] . "<br/>";
     echo "Arvit: " . $chagzmanim[1] . "<br/>";
     //echo "Candles: " . $chagzmanim[2] . "<br/>";
-    if ($chagzmanim[4]) {echo "Preparation: " . $chagzmanim[4] . "<br/>";}
+    //if ($chagzmanim[4]) {echo "Preparation: " . $chagzmanim[4] . "<br/>";}
     if ($chagzmanim[3]) {echo "Notes: " . $chagzmanim[3] . "<br/>";}
     if ($chagzmanim[5]) {echo "Havdallah: " . $chagzmanim[5] . "<br/>";}
     echo "Shkia: " . $chaginfo[3] . "<br/>";
@@ -305,29 +322,26 @@ echo "<h3>Yom Kippur - " . $chaginfo[1] . " " . $erev . "</h3>";
     if ($chagzmanim[6]) {echo "Motzei Chag: " . $chagzmanim[6] . "<br/>";}
 //end day print info
 
-if ($debug == 1) { 
-    printdebug($chaginfo, $chagzmanim, $zmanurl); 
-    }
-
 //get Sukkot - 15-16 Tishrei
 $monthname = "Tishrei";
-$daynum = "15";
-$zmanurl = "https://www.hebcal.com/converter?cfg=json&hy=$hebyear&hm=$monthname&hd=$daynum&h2g=1";
-$get_zmanim = callAPI('GET', $zmanurl, false);
-$zmanresponse = json_decode($get_zmanim, true);
-$chagdate = date('Y-m-d', mktime(0,0,0,$zmanresponse['gm'],$zmanresponse['gd'],$zmanresponse['gy']));
-//get times
-//Erev is chagdate - 1
-$erev = date('Y-m-d', strtotime( $chagdate . " -1 days"));
-$chagdone = 0;
-$chaginfo = getzmanim($erev, $latitude, $longitude, $geostring, $tzid);
-    $chagerevdownum = $chaginfo[0];
-$chagzmanim = chagzmanim($chaginfo[0], $chagerevdownum, $chaginfo[3], $chagdone);
+$daynum = "14";
+//dayseq 0 = erev, 1=1st day, 2=2nd day, 3=3rd day
+$dayseq = 0;
+$times = gettimes($hebyear, $monthname, $daynum, $dayseq, $latitude, $longitude, $geostring, $tzid);
+$chagdate = $times[0];
+$chaginfo = $times[1];
+$chagzmanim = $times[2];
+$zmanurl = $times[3];
 
 //print day info here
-echo "<h3>Erev Sukkot - " . $chaginfo[1] . " " . $erev . "</h3>";
+if ($debug == 1) { 
+    printdebug($chaginfo, $chagzmanim, $zmanurl); 
+    }
+
+echo "<h3>Erev Sukkot - " . $chaginfo[1] . " " . $chagdate . "</h3>";
     echo "Netz: " . $chaginfo[2] . "<br/>";
-    echo "Sof Zman Kria Shema: " . $$chaginfo[10] . "<br/>";
+    echo "Sof Kria Shema: " . $chaginfo[10] . "<br/>";
+    echo "Ashrei: " . $chagzmanim[2] . "<br/>";
     echo "Mincha: " . $chagzmanim[0] . "<br/>";
     echo "Arvit: " . $chagzmanim[1] . "<br/>";
     echo "Candles: " . $chagzmanim[2] . "<br/>";
@@ -337,20 +351,27 @@ echo "<h3>Erev Sukkot - " . $chaginfo[1] . " " . $erev . "</h3>";
     echo "Shkia: " . $chaginfo[3] . "<br/>";
     if ($chagzmanim[6]) {echo "Motzei Chag: " . $chagzmanim[6] . "<br/>";}
 //end day print info
-
-if ($debug == 1) { 
-    printdebug($chaginfo, $chagzmanim, $zmanurl); 
-    }
 
 //Sukkot day 1 - 15 Tishrei
-$chagdone = 0;    
-$chaginfo = getzmanim($chagdate, $latitude, $longitude, $geostring, $tzid);
-$chagzmanim = chagzmanim($chagdownum, $chagerevdownum, $chagshkia, $chagdone);
+$monthname = "Tishrei";
+$daynum = "15";
+//dayseq 0 = erev, 1=1st day, 2=2nd day, 3=3rd day
+$dayseq = 1;
+$times = gettimes($hebyear, $monthname, $daynum, $dayseq, $latitude, $longitude, $geostring, $tzid);
+$chagdate = $times[0];
+$chaginfo = $times[1];
+$chagzmanim = $times[2];
+$zmanurl = $times[3];
 
 //print day info here
+if ($debug == 1) { 
+    printdebug($chaginfo, $chagzmanim, $zmanurl); 
+    }
+
 echo "<h3>Sukkot 1 - " . $chaginfo[1] . " " .  $chagdate . "</h3>";
     echo "Netz: " . $chaginfo[2] . "<br/>";
-    echo "Sof Zman Kria Shema: " . $$chaginfo[10] . "<br/>";
+    echo "Sof Kria Shema: " . $chaginfo[10] . "<br/>";
+    echo "Ashrei: " . $chagzmanim[2] . "<br/>";
     echo "Mincha: " . $chagzmanim[0] . "<br/>";
     echo "Arvit: " . $chagzmanim[1] . "<br/>";
     echo "Candles: " . $chagzmanim[2] . "<br/>";
@@ -360,104 +381,60 @@ echo "<h3>Sukkot 1 - " . $chaginfo[1] . " " .  $chagdate . "</h3>";
     echo "Shkia: " . $chaginfo[3] . "<br/>";
     if ($chagzmanim[6]) {echo "Motzei Chag: " . $chagzmanim[6] . "<br/>";}
 //end day print info
-
-if ($debug == 1) { 
-    printdebug($chaginfo, $chagzmanim, $zmanurl); 
-    }
 
 //Sukkot day 2 - 16 Tishrei
-$chagdate2 = date('Y-m-d', strtotime( $chagdate . " +1 days"));
-$chagdone = 1;
-$chaginfo = getzmanim($chagdate2, $latitude, $longitude, $geostring, $tzid);
-$chagzmanim = chagzmanim($chagdownum, $chagerevdownum, $chagshkia, $chagdone);
-
-//print day info here
-echo "<h3>Sukkot 2 - " . $chaginfo[1] . " " . $chagdate2 . "</h3>";
-    echo "Netz: " . $chaginfo[2] . "<br/>";
-    echo "Sof Zman Kria Shema: " . $$chaginfo[10] . "<br/>";
-    echo "Mincha: " . $chagzmanim[0] . "<br/>";
-    echo "Arvit: " . $chagzmanim[1] . "<br/>";
-    echo "Candles: " . $chagzmanim[2] . "<br/>";
-    if ($chagzmanim[4]) {echo "Preparation: " . $chagzmanim[4] . "<br/>";}
-    if ($chagzmanim[3]) {echo "Notes: " . $chagzmanim[3] . "<br/>";}
-    if ($chagzmanim[5]) {echo "Havdallah: " . $chagzmanim[5] . "<br/>";}
-    echo "Shkia: " . $chaginfo[3] . "<br/>";
-    if ($chagzmanim[6]) {echo "Motzei Chag: " . $chagzmanim[6] . "<br/>";}
-//end day print info
-
-if ($debug == 1) { 
-    printdebug($chaginfo, $chagzmanim, $zmanurl); 
-    }
-
-//Sukkot 7 Hoshana Raba - 21 Tishrei
 $monthname = "Tishrei";
-$daynum = "22"; //effectively "erev" of the sukkot chag
-$zmanurl = "https://www.hebcal.com/converter?cfg=json&hy=$hebyear&hm=$monthname&hd=$daynum&h2g=1";
-$get_zmanim = callAPI('GET', $zmanurl, false);
-$zmanresponse = json_decode($get_zmanim, true);
-$chagdate = date('Y-m-d', mktime(0,0,0,$zmanresponse['gm'],$zmanresponse['gd'],$zmanresponse['gy']));
-//Erev is chagdate - 1
-$erev = date('Y-m-d', strtotime( $chagdate . " -1 days"));
-//get times
-$chagdone = 0;
-$chaginfo = getzmanim($erev, $latitude, $longitude, $geostring, $tzid);
-    $chagerevdownum = $chaginfo[0];
-$chagzmanim = chagzmanim($chaginfo[0], $chagerevdownum, $chaginfo[3], $chagdone);
+$daynum = "16";
+//dayseq 0 = erev, 1=1st day, 2=2nd day, 3=3rd day
+$dayseq = 2;
+$times = gettimes($hebyear, $monthname, $daynum, $dayseq, $latitude, $longitude, $geostring, $tzid);
+$chagdate = $times[0];
+$chaginfo = $times[1];
+$chagzmanim = $times[2];
+$zmanurl = $times[3];
 
 //print day info here
-echo "<h3>Hoshana Raba - " . $chaginfo[1] . " " . $erev . "</h3>";
-    echo "Netz: " . $chaginfo[2] . "<br/>";
-    echo "Sof Zman Kria Shema: " . $$chaginfo[10] . "<br/>";
-    echo "Mincha: " . $chagzmanim[0] . "<br/>";
-    echo "Arvit: " . $chagzmanim[1] . "<br/>";
-    echo "Candles: " . $chagzmanim[2] . "<br/>";
-    if ($chagzmanim[4]) {echo "Preparation: " . $chagzmanim[4] . "<br/>";}
-    if ($chagzmanim[3]) {echo "Notes: " . $chagzmanim[3] . "<br/>";}
-    if ($chagzmanim[5]) {echo "Havdallah: " . $chagzmanim[5] . "<br/>";}
-    echo "Shkia: " . $chaginfo[3] . "<br/>";
-    if ($chagzmanim[6]) {echo "Motzei Chag: " . $chagzmanim[6] . "<br/>";}
-//end day print info
-
 if ($debug == 1) { 
     printdebug($chaginfo, $chagzmanim, $zmanurl); 
     }
 
-//Sukkot 8 Shmini Atzeret - 22 Tishrei
-$chagdone = 0;    
-$chaginfo = getzmanim($chagdate, $latitude, $longitude, $geostring, $tzid);
-$chagzmanim = chagzmanim($chagdownum, $chagerevdownum, $chagshkia, $chagdone);
-
-//print day info here
-echo "<h3>Shmini Atzseret - " . $chaginfo[1] . " " .  $chagdate . "</h3>";
+echo "<h3>Sukkot 2 - " . $chaginfo[1] . " " . $chagdate . "</h3>";
     echo "Netz: " . $chaginfo[2] . "<br/>";
-    echo "Sof Zman Kria Shema: " . $$chaginfo[10] . "<br/>";
-    echo "Mincha: " . $chagzmanim[0] . "<br/>";
-    echo "Arvit: " . $chagzmanim[1] . "<br/>";
-    echo "Candles: " . $chagzmanim[2] . "<br/>";
-    if ($chagzmanim[4]) {echo "Preparation: " . $chagzmanim[4] . "<br/>";}
-    if ($chagzmanim[3]) {echo "Notes: " . $chagzmanim[3] . "<br/>";}
-    if ($chagzmanim[5]) {echo "Havdallah: " . $chagzmanim[5] . "<br/>";}
-    echo "Shkia: " . $chaginfo[3] . "<br/>";
-    if ($chagzmanim[6]) {echo "Motzei Chag: " . $chagzmanim[6] . "<br/>";}
-//end day print info
-
-if ($debug == 1) { 
-    printdebug($chaginfo, $chagzmanim, $zmanurl); 
-    }
-
-//Simchat Torah - 23 Tishrei
-$chagdate2 = date('Y-m-d', strtotime( $chagdate . " +1 days"));
-$chagdone = 1;
-$chaginfo = getzmanim($chagdate2, $latitude, $longitude, $geostring, $tzid);
-$chagzmanim = chagzmanim($chagdownum, $chagerevdownum, $chagshkia, $chagdone);
-
-//print day info here
-echo "<h3>Simchat Torah - " . $chaginfo[1] . " " . $chagdate2 . "</h3>";
-    echo "Netz: " . $chaginfo[2] . "<br/>";
-    echo "Sof Zman Kria Shema: " . $$chaginfo[10] . "<br/>";
+    echo "Sof Kria Shema: " . $chaginfo[10] . "<br/>";
+    echo "Ashrei: " . $chagzmanim[2] . "<br/>";
     echo "Mincha: " . $chagzmanim[0] . "<br/>";
     echo "Arvit: " . $chagzmanim[1] . "<br/>";
     //echo "Candles: " . $chagzmanim[2] . "<br/>";
+    //if ($chagzmanim[4]) {echo "Preparation: " . $chagzmanim[4] . "<br/>";}
+    if ($chagzmanim[3]) {echo "Notes: " . $chagzmanim[3] . "<br/>";}
+    if ($chagzmanim[5]) {echo "Havdallah: " . $chagzmanim[5] . "<br/>";}
+    echo "Shkia: " . $chaginfo[3] . "<br/>";
+    if ($chagzmanim[6]) {echo "Motzei Chag: " . $chagzmanim[6] . "<br/>";}
+//end day print info
+
+//Sukkot 7 Hoshana Raba - 21 Tishrei
+$monthname = "Tishrei";
+$daynum = "21";
+//dayseq 0 = erev, 1=1st day, 2=2nd day, 3=3rd day
+$dayseq = 0;
+$times = gettimes($hebyear, $monthname, $daynum, $dayseq, $latitude, $longitude, $geostring, $tzid);
+$chagdate = $times[0];
+$chaginfo = $times[1];
+$chagzmanim = $times[2];
+$zmanurl = $times[3];
+
+//print day info here
+if ($debug == 1) { 
+    printdebug($chaginfo, $chagzmanim, $zmanurl); 
+    }
+
+echo "<h3>Hoshana Raba - " . $chaginfo[1] . " " . $chagdate . "</h3>";
+    echo "Netz: " . $chaginfo[2] . "<br/>";
+    echo "Sof Kria Shema: " . $chaginfo[10] . "<br/>";
+    echo "Ashrei: " . $chagzmanim[2] . "<br/>";
+    echo "Mincha: " . $chagzmanim[0] . "<br/>";
+    echo "Arvit: " . $chagzmanim[1] . "<br/>";
+    echo "Candles: " . $chagzmanim[2] . "<br/>";
     if ($chagzmanim[4]) {echo "Preparation: " . $chagzmanim[4] . "<br/>";}
     if ($chagzmanim[3]) {echo "Notes: " . $chagzmanim[3] . "<br/>";}
     if ($chagzmanim[5]) {echo "Havdallah: " . $chagzmanim[5] . "<br/>";}
@@ -465,32 +442,91 @@ echo "<h3>Simchat Torah - " . $chaginfo[1] . " " . $chagdate2 . "</h3>";
     if ($chagzmanim[6]) {echo "Motzei Chag: " . $chagzmanim[6] . "<br/>";}
 //end day print info
 
+//Sukkot 8 Shmini Atzeret - 22 Tishrei
+$monthname = "Tishrei";
+$daynum = "22";
+//dayseq 0 = erev, 1=1st day, 2=2nd day, 3=3rd day
+$dayseq = 1;
+$times = gettimes($hebyear, $monthname, $daynum, $dayseq, $latitude, $longitude, $geostring, $tzid);
+$chagdate = $times[0];
+$chaginfo = $times[1];
+$chagzmanim = $times[2];
+$zmanurl = $times[3];
+
+//print day info here
 if ($debug == 1) { 
     printdebug($chaginfo, $chagzmanim, $zmanurl); 
     }
+
+echo "<h3>Shmini Atzseret - " . $chaginfo[1] . " " .  $chagdate . "</h3>";
+    echo "Netz: " . $chaginfo[2] . "<br/>";
+    echo "Sof Kria Shema: " . $chaginfo[10] . "<br/>";
+    echo "Ashrei: " . $chagzmanim[2] . "<br/>";
+    echo "Mincha: " . $chagzmanim[0] . "<br/>";
+    echo "Arvit: " . $chagzmanim[1] . "<br/>";
+    echo "Candles: " . $chagzmanim[2] . "<br/>";
+    if ($chagzmanim[4]) {echo "Preparation: " . $chagzmanim[4] . "<br/>";}
+    if ($chagzmanim[3]) {echo "Notes: " . $chagzmanim[3] . "<br/>";}
+    if ($chagzmanim[5]) {echo "Havdallah: " . $chagzmanim[5] . "<br/>";}
+    echo "Shkia: " . $chaginfo[3] . "<br/>";
+    if ($chagzmanim[6]) {echo "Motzei Chag: " . $chagzmanim[6] . "<br/>";}
+//end day print info
+
+//Simchat Torah - 23 Tishrei
+$monthname = "Tishrei";
+$daynum = "23";
+//dayseq 0 = erev, 1=1st day, 2=2nd day, 3=3rd day
+$dayseq = 2;
+$times = gettimes($hebyear, $monthname, $daynum, $dayseq, $latitude, $longitude, $geostring, $tzid);
+$chagdate = $times[0];
+$chaginfo = $times[1];
+$chagzmanim = $times[2];
+$zmanurl = $times[3];
+
+//print day info here
+if ($debug == 1) { 
+    printdebug($chaginfo, $chagzmanim, $zmanurl); 
+    }
+
+echo "<h3>Simchat Torah - " . $chaginfo[1] . " " . $chagdate . "</h3>";
+    echo "Netz: " . $chaginfo[2] . "<br/>";
+    echo "Sof Kria Shema: " . $chaginfo[10] . "<br/>";
+    echo "Ashrei: " . $chagzmanim[2] . "<br/>";
+    echo "Mincha: " . $chagzmanim[0] . "<br/>";
+    echo "Arvit: " . $chagzmanim[1] . "<br/>";
+    //echo "Candles: " . $chagzmanim[2] . "<br/>";
+    //if ($chagzmanim[4]) {echo "Preparation: " . $chagzmanim[4] . "<br/>";}
+    if ($chagzmanim[3]) {echo "Notes: " . $chagzmanim[3] . "<br/>";}
+    if ($chagzmanim[5]) {echo "Havdallah: " . $chagzmanim[5] . "<br/>";}
+    echo "Shkia: " . $chaginfo[3] . "<br/>";
+    if ($chagzmanim[6]) {echo "Motzei Chag: " . $chagzmanim[6] . "<br/>";}
+//end day print info
 
 // get Asara B'Tevet 10 Tevet
 $monthname = "Tevet";
 $daynum = "10";
-$zmanurl = "https://www.hebcal.com/converter?cfg=json&hy=$hebyear&hm=$monthname&hd=$daynum&h2g=1";
-$get_zmanim = callAPI('GET', $zmanurl, false);
-$zmanresponse = json_decode($get_zmanim, true);
-$aseret1 = date('Y-m-d', mktime(0,0,0,$zmanresponse['gm'],$zmanresponse['gd'],$zmanresponse['gy']));
-//get times
-$chagdone = 0;
-$chaginfo = getzmanim($erev, $latitude, $longitude, $geostring, $tzid);
-    $chagerevdownum = $chaginfo[0];
-$chagzmanim = chagzmanim($chaginfo[0], $chagerevdownum, $chaginfo[3], $chagdone);
+//dayseq 0 = erev, 1=1st day, 2=2nd day, 3=3rd day
+$dayseq = 0;
+$times = gettimes($hebyear, $monthname, $daynum, $dayseq, $latitude, $longitude, $geostring, $tzid);
+$chagdate = $times[0];
+$chaginfo = $times[1];
+$chagzmanim = $times[2];
+$zmanurl = $times[3];
 
 //print day info here
-echo "<h3>Aseret b'Tevet - " . $chaginfo[1] . " " . $erev . "</h3>";
+if ($debug == 1) { 
+    printdebug($chaginfo, $chagzmanim, $zmanurl); 
+    }
+
+echo "<h3>Aseret b'Tevet - " . $chaginfo[1] . " " . $chagdate . "</h3>";
     echo "Fast begins: " . $chaginfo[6] . "<br>";
     echo "Netz: " . $chaginfo[2] . "<br/>";
-    echo "Sof Zman Kria Shema: " . $$chaginfo[10] . "<br/>";
+    echo "Sof Kria Shema: " . $chaginfo[10] . "<br/>";
+    echo "Ashrei: " . $chagzmanim[2] . "<br/>";
     echo "Mincha: " . $chagzmanim[0] . "<br/>";
     echo "Arvit: " . $chagzmanim[1] . "<br/>";
     //echo "Candles: " . $chagzmanim[2] . "<br/>";
-    if ($chagzmanim[4]) {echo "Preparation: " . $chagzmanim[4] . "<br/>";}
+    //if ($chagzmanim[4]) {echo "Preparation: " . $chagzmanim[4] . "<br/>";}
     if ($chagzmanim[3]) {echo "Notes: " . $chagzmanim[3] . "<br/>";}
     if ($chagzmanim[5]) {echo "Havdallah: " . $chagzmanim[5] . "<br/>";}
     echo "Shkia: " . $chaginfo[3] . "<br/>";
@@ -498,30 +534,27 @@ echo "<h3>Aseret b'Tevet - " . $chaginfo[1] . " " . $erev . "</h3>";
     if ($chagzmanim[6]) {echo "Motzei Chag: " . $chagzmanim[6] . "<br/>";}
 //end day print info
 
-if ($debug == 1) { 
-    printdebug($chaginfo, $chagzmanim, $zmanurl); 
-    }
-
 // get Purim - 14 Adar
 $monthname = "Adar";
-$daynum = "14";
-$zmanurl = "https://www.hebcal.com/converter?cfg=json&hy=$hebyear&hm=$monthname&hd=$daynum&h2g=1";
-$get_zmanim = callAPI('GET', $zmanurl, false);
-$zmanresponse = json_decode($get_zmanim, true);
-$purim1 = date('Y-m-d', mktime(0,0,0,$zmanresponse['gm'],$zmanresponse['gd'],$zmanresponse['gy']));
-//Erev is chagdate - 1
-$erev = date('Y-m-d', strtotime( $chagdate . " -1 days"));
-//get times
-$chagdone = 0;
-$chaginfo = getzmanim($erev, $latitude, $longitude, $geostring, $tzid);
-    $chagerevdownum = $chaginfo[0];
-$chagzmanim = chagzmanim($chaginfo[0], $chagerevdownum, $chaginfo[3], $chagdone);
+$daynum = "13";
+//dayseq 0 = erev, 1=1st day, 2=2nd day, 3=3rd day
+$dayseq = 0;
+$times = gettimes($hebyear, $monthname, $daynum, $dayseq, $latitude, $longitude, $geostring, $tzid);
+$chagdate = $times[0];
+$chaginfo = $times[1];
+$chagzmanim = $times[2];
+$zmanurl = $times[3];
 
 //print day info here
-echo "<h3>Taanit Esther - " . $chaginfo[1] . " " . $erev . "</h3>";
+if ($debug == 1) { 
+    printdebug($chaginfo, $chagzmanim, $zmanurl); 
+    }
+
+echo "<h3>Taanit Esther - " . $chaginfo[1] . " " . $chagdate . "</h3>";
     echo "Fast begins: " . $chaginfo[6] . "<br>";
     echo "Netz: " . $chaginfo[2] . "<br/>";
-    echo "Sof Zman Kria Shema: " . $$chaginfo[10] . "<br/>";
+    echo "Sof Kria Shema: " . $chaginfo[10] . "<br/>";
+    echo "Ashrei: " . $chagzmanim[2] . "<br/>";
     echo "Mincha: " . $chagzmanim[0] . "<br/>";
     echo "Arvit: " . $chagzmanim[1] . "<br/>";
     //echo "Candles: " . $chagzmanim[2] . "<br/>";
@@ -531,54 +564,59 @@ echo "<h3>Taanit Esther - " . $chaginfo[1] . " " . $erev . "</h3>";
     echo "Shkia: " . $chaginfo[3] . "<br/>";
     if ($chagzmanim[6]) {echo "Motzei Chag: " . $chagzmanim[6] . "<br/>";}
 //end day print info
-
-if ($debug == 1) { 
-    printdebug($chaginfo, $chagzmanim, $zmanurl); 
-    }
 
 //Purim Day
-$chagdone = 1;
-$chaginfo = getzmanim($purim1, $latitude, $longitude, $geostring, $tzid);
-$chagzmanim = chagzmanim($chagdownum, $chagerevdownum, $chagshkia, $chagdone);
+$monthname = "Adar";
+$daynum = "14";
+//dayseq 0 = erev, 1=1st day, 2=2nd day, 3=3rd day
+$dayseq = 1;
+$times = gettimes($hebyear, $monthname, $daynum, $dayseq, $latitude, $longitude, $geostring, $tzid);
+$chagdate = $times[0];
+$chaginfo = $times[1];
+$chagzmanim = $times[2];
+$zmanurl = $times[3];
 
 //print day info here
-echo "<h3>Purim - " . $chaginfo[1] . " " . $erev . "</h3>";
+if ($debug == 1) { 
+    printdebug($chaginfo, $chagzmanim, $zmanurl); 
+    }
+
+echo "<h3>Purim - " . $chaginfo[1] . " " . $chagdate . "</h3>";
     echo "Netz: " . $chaginfo[2] . "<br/>";
-    echo "Sof Zman Kria Shema: " . $$chaginfo[10] . "<br/>";
+    echo "Sof Kria Shema: " . $chaginfo[10] . "<br/>";
+    echo "Ashrei: " . $chagzmanim[2] . "<br/>";
     echo "Mincha: " . $chagzmanim[0] . "<br/>";
     echo "Arvit: " . $chagzmanim[1] . "<br/>";
     //echo "Candles: " . $chagzmanim[2] . "<br/>";
-    if ($chagzmanim[4]) {echo "Preparation: " . $chagzmanim[4] . "<br/>";}
+    //if ($chagzmanim[4]) {echo "Preparation: " . $chagzmanim[4] . "<br/>";}
     if ($chagzmanim[3]) {echo "Notes: " . $chagzmanim[3] . "<br/>";}
     if ($chagzmanim[5]) {echo "Havdallah: " . $chagzmanim[5] . "<br/>";}
     echo "Shkia: " . $chaginfo[3] . "<br/>";
     if ($chagzmanim[6]) {echo "Motzei Chag: " . $chagzmanim[6] . "<br/>";}
 //end day print info
 
+//Pesach 15-16 Nisan 
+$monthname = "Nisan";
+$daynum = "14";
+//dayseq 0 = erev, 1=1st day, 2=2nd day, 3=3rd day
+$dayseq = 0;
+$times = gettimes($hebyear, $monthname, $daynum, $dayseq, $latitude, $longitude, $geostring, $tzid);
+$chagdate = $times[0];
+$chaginfo = $times[1];
+$chagzmanim = $times[2];
+$zmanurl = $times[3];
+
+//print day info here
 if ($debug == 1) { 
     printdebug($chaginfo, $chagzmanim, $zmanurl); 
     }
 
-// //Pesach 15-16 Nisan 
-$monthname = "Nisan";
-$daynum = "15";
-$zmanurl = "https://www.hebcal.com/converter?cfg=json&hy=$hebyear&hm=$monthname&hd=$daynum&h2g=1";
-$get_zmanim = callAPI('GET', $zmanurl, false);
-$zmanresponse = json_decode($get_zmanim, true);
-$chagdate = date('Y-m-d', mktime(0,0,0,$zmanresponse['gm'],$zmanresponse['gd'],$zmanresponse['gy']));
-//Erev is chagdate - 1
-//erev is taanit bechorot
-$erev = date('Y-m-d', strtotime( $chagdate . " -1 days"));
-$chagdone = 0;
-$chaginfo = getzmanim($erev, $latitude, $longitude, $geostring, $tzid);
-    $chagerevdownum = $chaginfo[0];
-$chagzmanim = chagzmanim($chaginfo[0], $chagerevdownum, $chaginfo[3], $chagdone);
-
 //print day info here
-echo "<h3>Erev Pesach - " . $chaginfo[1] . " " . $erev . "</h3>";
+echo "<h3>Erev Pesach - " . $chaginfo[1] . " " . $chagdate . "</h3>";
     echo "Fast begins: " . $chaginfo[6] . "<br>";
     echo "Netz: " . $chaginfo[2] . "<br/>";
-    echo "Sof Zman Kria Shema: " . $$chaginfo[10] . "<br/>";
+    echo "Sof Kria Shema: " . $chaginfo[10] . "<br/>";
+    echo "Ashrei: " . $chagzmanim[2] . "<br/>";
     echo "Mincha: " . $chagzmanim[0] . "<br/>";
     echo "Arvit: " . $chagzmanim[1] . "<br/>";
     echo "Candles: " . $chagzmanim[2] . "<br/>";
@@ -589,22 +627,29 @@ echo "<h3>Erev Pesach - " . $chaginfo[1] . " " . $erev . "</h3>";
     if ($chagzmanim[6]) {echo "Motzei Chag: " . $chagzmanim[6] . "<br/>";}
 //end day print info
 
+//Pesach 1 - 15 Nisan
+$monthname = "Nisan";
+$daynum = "15";
+//dayseq 0 = erev, 1=1st day, 2=2nd day, 3=3rd day
+$dayseq = 1;
+$times = gettimes($hebyear, $monthname, $daynum, $dayseq, $latitude, $longitude, $geostring, $tzid);
+$chagdate = $times[0];
+$chaginfo = $times[1];
+$chagzmanim = $times[2];
+$zmanurl = $times[3];
+
+//print day info here
 if ($debug == 1) { 
     printdebug($chaginfo, $chagzmanim, $zmanurl); 
     }
 
-//Pesach 1 - 15 Nisan
-$chagdone = 0;
-$chaginfo = getzmanim($chagdate, $latitude, $longitude, $geostring, $tzid);
-$chagzmanim = chagzmanim($chagdownum, $chagerevdownum, $chagshkia, $chagdone);
-
-//print day info here
 echo "<h3>Pesach 1 - " . $chaginfo[1] . " " .  $chagdate . "</h3>";
     echo "Netz: " . $chaginfo[2] . "<br/>";
-    echo "Sof Zman Kria Shema: " . $$chaginfo[10] . "<br/>";
+    echo "Sof Kria Shema: " . $chaginfo[10] . "<br/>";
+    echo "Ashrei: " . $chagzmanim[2] . "<br/>";
     echo "Mincha: " . $chagzmanim[0] . "<br/>";
     echo "Arvit: " . $chagzmanim[1] . "<br/>";
-    echo "Candles: " . $chagzmanim[2] . "<br/>";
+    //echo "Candles: " . $chagzmanim[2] . "<br/>";
     if ($chagzmanim[4]) {echo "Preparation: " . $chagzmanim[4] . "<br/>";}
     if ($chagzmanim[3]) {echo "Notes: " . $chagzmanim[3] . "<br/>";}
     if ($chagzmanim[5]) {echo "Havdallah: " . $chagzmanim[5] . "<br/>";}
@@ -617,47 +662,55 @@ if ($debug == 1) {
     }
 
 //Pesach 2 - 16 Nisan
-$chagdate2 = date('Y-m-d', strtotime( $chagdate . " +1 days"));
-$chagdone = 1;
-$chaginfo = getzmanim($erev, $latitude, $longitude, $geostring, $tzid);
-$chagzmanim = chagzmanim($chaginfo[0], $chagerevdownum, $chaginfo[3], $chagdone);
+$monthname = "Nisan";
+$daynum = "16";
+//dayseq 0 = erev, 1=1st day, 2=2nd day, 3=3rd day
+$dayseq = 2;
+$times = gettimes($hebyear, $monthname, $daynum, $dayseq, $latitude, $longitude, $geostring, $tzid);
+$chagdate = $times[0];
+$chaginfo = $times[1];
+$chagzmanim = $times[2];
+$zmanurl = $times[3];
 
 //print day info here
-echo "<h3>Pesach 2 - " . $chaginfo[1] . " " . $chagdate2 . "</h3>";
+if ($debug == 1) { 
+    printdebug($chaginfo, $chagzmanim, $zmanurl); 
+    }
+
+echo "<h3>Pesach 2 - " . $chaginfo[1] . " " . $chagdate . "</h3>";
     echo "Netz: " . $chaginfo[2] . "<br/>";
-    echo "Sof Zman Kria Shema: " . $$chaginfo[10] . "<br/>";
+    echo "Sof Kria Shema: " . $chaginfo[10] . "<br/>";
+    echo "Ashrei: " . $chagzmanim[2] . "<br/>";
     echo "Mincha: " . $chagzmanim[0] . "<br/>";
     echo "Arvit: " . $chagzmanim[1] . "<br/>";
     //echo "Candles: " . $chagzmanim[2] . "<br/>";
-    if ($chagzmanim[4]) {echo "Preparation: " . $chagzmanim[4] . "<br/>";}
+    //if ($chagzmanim[4]) {echo "Preparation: " . $chagzmanim[4] . "<br/>";}
     if ($chagzmanim[3]) {echo "Notes: " . $chagzmanim[3] . "<br/>";}
     if ($chagzmanim[5]) {echo "Havdallah: " . $chagzmanim[5] . "<br/>";}
     echo "Shkia: " . $chaginfo[3] . "<br/>";
     if ($chagzmanim[6]) {echo "Motzei Chag: " . $chagzmanim[6] . "<br/>";}
 //end day print info
-
-if ($debug == 1) { 
-    printdebug($chaginfo, $chagzmanim, $zmanurl); 
-    }
 
 //End of Passover 21-22 Nisan (Passover)
 $monthname = "Nisan";
-$daynum = "21";
-$zmanurl = "https://www.hebcal.com/converter?cfg=json&hy=$hebyear&hm=$monthname&hd=$daynum&h2g=1";
-$get_zmanim = callAPI('GET', $zmanurl, false);
-$zmanresponse = json_decode($get_zmanim, true);
-$chagdate = date('Y-m-d', mktime(0,0,0,$zmanresponse['gm'],$zmanresponse['gd'],$zmanresponse['gy']));
-//Erev is chagdate - 1
-$erev = date('Y-m-d', strtotime( $chagdate . " -1 days"));
-$chagdone = 0;
-$chaginfo = getzmanim($erev, $latitude, $longitude, $geostring, $tzid);
-    $chagerevdownum = $chaginfo[0];
-$chagzmanim = chagzmanim($chaginfo[0], $chagerevdownum, $chaginfo[3], $chagdone);
+$daynum = "20";
+//dayseq 0 = erev, 1=1st day, 2=2nd day, 3=3rd day
+$dayseq = 0;
+$times = gettimes($hebyear, $monthname, $daynum, $dayseq, $latitude, $longitude, $geostring, $tzid);
+$chagdate = $times[0];
+$chaginfo = $times[1];
+$chagzmanim = $times[2];
+$zmanurl = $times[3];
 
 //print day info here
-echo "<h3>Erev Pesach VII - " . $chaginfo[1] . " " . $erev . "</h3>";
+if ($debug == 1) { 
+    printdebug($chaginfo, $chagzmanim, $zmanurl); 
+    }
+
+echo "<h3>Erev Pesach VII - " . $chaginfo[1] . " " . $chagdate . "</h3>";
     echo "Netz: " . $chaginfo[2] . "<br/>";
-    echo "Sof Zman Kria Shema: " . $$chaginfo[10] . "<br/>";
+    echo "Sof Kria Shema: " . $chaginfo[10] . "<br/>";
+    echo "Ashrei: " . $chagzmanim[2] . "<br/>";
     echo "Mincha: " . $chagzmanim[0] . "<br/>";
     echo "Arvit: " . $chagzmanim[1] . "<br/>";
     echo "Candles: " . $chagzmanim[2] . "<br/>";
@@ -667,76 +720,87 @@ echo "<h3>Erev Pesach VII - " . $chaginfo[1] . " " . $erev . "</h3>";
     echo "Shkia: " . $chaginfo[3] . "<br/>";
     if ($chagzmanim[6]) {echo "Motzei Chag: " . $chagzmanim[6] . "<br/>";}
 //end day print info
-
-if ($debug == 1) { 
-    printdebug($chaginfo, $chagzmanim, $zmanurl); 
-    }
 
 //Pesach VII - 21 Nisan
-$chagdone = 0;
-$chaginfo = getzmanim($erev, $latitude, $longitude, $geostring, $tzid);
-$chagzmanim = chagzmanim($chaginfo[0], $chagerevdownum, $chaginfo[3], $chagdone);
+$monthname = "Nisan";
+$daynum = "21";
+//dayseq 0 = erev, 1=1st day, 2=2nd day, 3=3rd day
+$dayseq = 1;
+$times = gettimes($hebyear, $monthname, $daynum, $dayseq, $latitude, $longitude, $geostring, $tzid);
+$chagdate = $times[0];
+$chaginfo = $times[1];
+$chagzmanim = $times[2];
+$zmanurl = $times[3];
 
 //print day info here
+if ($debug == 1) { 
+    printdebug($chaginfo, $chagzmanim, $zmanurl); 
+    }
+
 echo "<h3>Pesach VII - " . $chaginfo[1] . " " .  $chagdate . "</h3>";
     echo "Netz: " . $chaginfo[2] . "<br/>";
-    echo "Sof Zman Kria Shema: " . $$chaginfo[10] . "<br/>";
+    echo "Sof Kria Shema: " . $chaginfo[10] . "<br/>";
+    echo "Ashrei: " . $chagzmanim[2] . "<br/>";
     echo "Mincha: " . $chagzmanim[0] . "<br/>";
     echo "Arvit: " . $chagzmanim[1] . "<br/>";
-    echo "Candles: " . $chagzmanim[2] . "<br/>";
+    //echo "Candles: " . $chagzmanim[2] . "<br/>";
     if ($chagzmanim[4]) {echo "Preparation: " . $chagzmanim[4] . "<br/>";}
     if ($chagzmanim[3]) {echo "Notes: " . $chagzmanim[3] . "<br/>";}
     if ($chagzmanim[5]) {echo "Havdallah: " . $chagzmanim[5] . "<br/>";}
     echo "Shkia: " . $chaginfo[3] . "<br/>";
     if ($chagzmanim[6]) {echo "Motzei Chag: " . $chagzmanim[6] . "<br/>";}
 //end day print info
-
-if ($debug == 1) { 
-    printdebug($chaginfo, $chagzmanim, $zmanurl); 
-    }
 
 //Pesach VIII - 22 Nisan
-$chagdate2 = date('Y-m-d', strtotime( $chagdate . " +1 days"));
-$chagdone = 1;
-$chaginfo = getzmanim($erev, $latitude, $longitude, $geostring, $tzid);
-$chagzmanim = chagzmanim($chaginfo[0], $chagerevdownum, $chaginfo[3], $chagdone);
+$monthname = "Nisan";
+$daynum = "22";
+//dayseq 0 = erev, 1=1st day, 2=2nd day, 3=3rd day
+$dayseq = 2;
+$times = gettimes($hebyear, $monthname, $daynum, $dayseq, $latitude, $longitude, $geostring, $tzid);
+$chagdate = $times[0];
+$chaginfo = $times[1];
+$chagzmanim = $times[2];
+$zmanurl = $times[3];
 
 //print day info here
-echo "<h3>Pesach VIII - " . $chaginfo[1] . " " . $chagdate2 . "</h3>";
+if ($debug == 1) { 
+    printdebug($chaginfo, $chagzmanim, $zmanurl); 
+    }
+
+echo "<h3>Pesach VIII - " . $chaginfo[1] . " " . $chagdate . "</h3>";
     echo "Netz: " . $chaginfo[2] . "<br/>";
-    echo "Sof Zman Kria Shema: " . $$chaginfo[10] . "<br/>";
+    echo "Sof Kria Shema: " . $chaginfo[10] . "<br/>";
+    echo "Ashrei: " . $chagzmanim[2] . "<br/>";
     echo "Mincha: " . $chagzmanim[0] . "<br/>";
     echo "Arvit: " . $chagzmanim[1] . "<br/>";
     //echo "Candles: " . $chagzmanim[2] . "<br/>";
-    if ($chagzmanim[4]) {echo "Preparation: " . $chagzmanim[4] . "<br/>";}
+    //if ($chagzmanim[4]) {echo "Preparation: " . $chagzmanim[4] . "<br/>";}
     if ($chagzmanim[3]) {echo "Notes: " . $chagzmanim[3] . "<br/>";}
     if ($chagzmanim[5]) {echo "Havdallah: " . $chagzmanim[5] . "<br/>";}
     echo "Shkia: " . $chaginfo[3] . "<br/>";
     if ($chagzmanim[6]) {echo "Motzei Chag: " . $chagzmanim[6] . "<br/>";}
 //end day print info
 
+// get Shavuot 6-7 Sivan
+$monthname = "Sivan";
+$daynum = "05";
+//dayseq 0 = erev, 1=1st day, 2=2nd day, 3=3rd day
+$dayseq = 0;
+$times = gettimes($hebyear, $monthname, $daynum, $dayseq, $latitude, $longitude, $geostring, $tzid);
+$chagdate = $times[0];
+$chaginfo = $times[1];
+$chagzmanim = $times[2];
+$zmanurl = $times[3];
+
+//print day info here
 if ($debug == 1) { 
     printdebug($chaginfo, $chagzmanim, $zmanurl); 
     }
 
-// // get Shavuot 6-7 Sivan
-$monthname = "Sivan";
-$daynum = "06";
-$zmanurl = "https://www.hebcal.com/converter?cfg=json&hy=$hebyear&hm=$monthname&hd=$daynum&h2g=1";
-$get_zmanim = callAPI('GET', $zmanurl, false);
-$zmanresponse = json_decode($get_zmanim, true);
-$chagdate = date('Y-m-d', mktime(0,0,0,$zmanresponse['gm'],$zmanresponse['gd'],$zmanresponse['gy']));
-//Erev is chagdate - 1
-$erev = date('Y-m-d', strtotime( $chagdate . " -1 days"));
-$chagdone = 0;
-$chaginfo = getzmanim($erev, $latitude, $longitude, $geostring, $tzid);
-    $chagerevdownum = $chaginfo[0];
-$chagzmanim = chagzmanim($chaginfo[0], $chagerevdownum, $chaginfo[3], $chagdone);
-
-//print day info here
 echo "<h3>Erev Shavuot - " . $chaginfo[1] . " " . $erev . "</h3>";
     echo "Netz: " . $chaginfo[2] . "<br/>";
-    echo "Sof Zman Kria Shema: " . $$chaginfo[10] . "<br/>";
+    echo "Sof Kria Shema: " . $chaginfo[10] . "<br/>";
+    echo "Ashrei: " . $chagzmanim[2] . "<br/>";
     echo "Mincha: " . $chagzmanim[0] . "<br/>";
     echo "Arvit: " . $chagzmanim[1] . "<br/>";
     echo "Candles: " . $chagzmanim[2] . "<br/>";
@@ -746,44 +810,27 @@ echo "<h3>Erev Shavuot - " . $chaginfo[1] . " " . $erev . "</h3>";
     echo "Shkia: " . $chaginfo[3] . "<br/>";
     if ($chagzmanim[6]) {echo "Motzei Chag: " . $chagzmanim[6] . "<br/>";}
 //end day print info
-
-if ($debug == 1) { 
-    printdebug($chaginfo, $chagzmanim, $zmanurl); 
-    }
 
 //Shavuot 1 - 6 Sivan
-$chagdone = 0;
-$chaginfo = getzmanim($erev, $latitude, $longitude, $geostring, $tzid);
-$chagzmanim = chagzmanim($chaginfo[0], $chagerevdownum, $chaginfo[3], $chagdone);
+$monthname = "Sivan";
+$daynum = "06";
+//dayseq 0 = erev, 1=1st day, 2=2nd day, 3=3rd day
+$dayseq = 1;
+$times = gettimes($hebyear, $monthname, $daynum, $dayseq, $latitude, $longitude, $geostring, $tzid);
+$chagdate = $times[0];
+$chaginfo = $times[1];
+$chagzmanim = $times[2];
+$zmanurl = $times[3];
 
 //print day info here
-echo "<h3>Shavuot 1 - " . $chaginfo[1] . " " .  $chagdate . "</h3>";
-    echo "Netz: " . $chaginfo[2] . "<br/>";
-    echo "Sof Zman Kria Shema: " . $$chaginfo[10] . "<br/>";
-    echo "Mincha: " . $chagzmanim[0] . "<br/>";
-    echo "Arvit: " . $chagzmanim[1] . "<br/>";
-    echo "Candles: " . $chagzmanim[2] . "<br/>";
-    if ($chagzmanim[4]) {echo "Preparation: " . $chagzmanim[4] . "<br/>";}
-    if ($chagzmanim[3]) {echo "Notes: " . $chagzmanim[3] . "<br/>";}
-    if ($chagzmanim[5]) {echo "Havdallah: " . $chagzmanim[5] . "<br/>";}
-    echo "Shkia: " . $chaginfo[3] . "<br/>";
-    if ($chagzmanim[6]) {echo "Motzei Chag: " . $chagzmanim[6] . "<br/>";}
-//end day print info
-
 if ($debug == 1) { 
     printdebug($chaginfo, $chagzmanim, $zmanurl); 
     }
 
-//Shavuot 2 - 7 Sivan
-$chagdate2 = date('Y-m-d', strtotime( $chagdate . " +1 days"));
-$chagdone = 1;
-$chaginfo = getzmanim($erev, $latitude, $longitude, $geostring, $tzid);
-$chagzmanim = chagzmanim($chaginfo[0], $chagerevdownum, $chaginfo[3], $chagdone);
-
-//print day info here
-echo "<h3>Pesach 2 - " . $chaginfo[1] . " " . $chagdate2 . "</h3>";
+echo "<h3>Shavuot 1 - " . $chaginfo[1] . " " .  $chagdate . "</h3>";
     echo "Netz: " . $chaginfo[2] . "<br/>";
-    echo "Sof Zman Kria Shema: " . $$chaginfo[10] . "<br/>";
+    echo "Sof Kria Shema: " . $chaginfo[10] . "<br/>";
+    echo "Ashrei: " . $chagzmanim[2] . "<br/>";
     echo "Mincha: " . $chagzmanim[0] . "<br/>";
     echo "Arvit: " . $chagzmanim[1] . "<br/>";
     //echo "Candles: " . $chagzmanim[2] . "<br/>";
@@ -794,32 +841,61 @@ echo "<h3>Pesach 2 - " . $chaginfo[1] . " " . $chagdate2 . "</h3>";
     if ($chagzmanim[6]) {echo "Motzei Chag: " . $chagzmanim[6] . "<br/>";}
 //end day print info
 
+//Shavuot 2 - 7 Sivan
+$monthname = "Sivan";
+$daynum = "07";
+//dayseq 0 = erev, 1=1st day, 2=2nd day, 3=3rd day
+$dayseq = 2;
+$times = gettimes($hebyear, $monthname, $daynum, $dayseq, $latitude, $longitude, $geostring, $tzid);
+$chagdate = $times[0];
+$chaginfo = $times[1];
+$chagzmanim = $times[2];
+$zmanurl = $times[3];
+
+//print day info here
 if ($debug == 1) { 
     printdebug($chaginfo, $chagzmanim, $zmanurl); 
     }
 
+echo "<h3>Shavuot 2 - " . $chaginfo[1] . " " . $chagdate . "</h3>";
+    echo "Netz: " . $chaginfo[2] . "<br/>";
+    echo "Sof Kria Shema: " . $chaginfo[10] . "<br/>";
+    echo "Ashrei: " . $chagzmanim[2] . "<br/>";
+    echo "Mincha: " . $chagzmanim[0] . "<br/>";
+    echo "Arvit: " . $chagzmanim[1] . "<br/>";
+    //echo "Candles: " . $chagzmanim[2] . "<br/>";
+    //if ($chagzmanim[4]) {echo "Preparation: " . $chagzmanim[4] . "<br/>";}
+    if ($chagzmanim[3]) {echo "Notes: " . $chagzmanim[3] . "<br/>";}
+    if ($chagzmanim[5]) {echo "Havdallah: " . $chagzmanim[5] . "<br/>";}
+    echo "Shkia: " . $chaginfo[3] . "<br/>";
+    if ($chagzmanim[6]) {echo "Motzei Chag: " . $chagzmanim[6] . "<br/>";}
+//end day print info
 
 // // get Tzom Tamuz - 17 Tamuz
 $monthname = "Tamuz";
 $daynum = "17";
-$zmanurl = "https://www.hebcal.com/converter?cfg=json&hy=$hebyear&hm=$monthname&hd=$daynum&h2g=1";
-$get_zmanim = callAPI('GET', $zmanurl, false);
-$zmanresponse = json_decode($get_zmanim, true);
-$chagdate = date('Y-m-d', mktime(0,0,0,$zmanresponse['gm'],$zmanresponse['gd'],$zmanresponse['gy']));
-$chagdone = 0;
-$chaginfo = getzmanim($erev, $latitude, $longitude, $geostring, $tzid);
-    $chagerevdownum = $chaginfo[0];
-$chagzmanim = chagzmanim($chaginfo[0], $chagerevdownum, $chaginfo[3], $chagdone);
+//dayseq 0 = erev, 1=1st day, 2=2nd day, 3=3rd day
+$dayseq = 1;
+$times = gettimes($hebyear, $monthname, $daynum, $dayseq, $latitude, $longitude, $geostring, $tzid);
+$chagdate = $times[0];
+$chaginfo = $times[1];
+$chagzmanim = $times[2];
+$zmanurl = $times[3];
 
 //print day info here
+if ($debug == 1) { 
+    printdebug($chaginfo, $chagzmanim, $zmanurl); 
+    }
+
 echo "<h3>Tzom Tammuz - " . $chaginfo[1] . " " . $chagdate . "</h3>";
     echo "Fast begins: " . $chaginfo[6] . "<br>";
     echo "Netz: " . $chaginfo[2] . "<br/>";
-    echo "Sof Zman Kria Shema: " . $$chaginfo[10] . "<br/>";
+    echo "Sof Kria Shema: " . $chaginfo[10] . "<br/>";
+    echo "Ashrei: " . $chagzmanim[2] . "<br/>";
     echo "Mincha: " . $chagzmanim[0] . "<br/>";
     echo "Arvit: " . $chagzmanim[1] . "<br/>";
     //echo "Candles: " . $chagzmanim[2] . "<br/>";
-    if ($chagzmanim[4]) {echo "Preparation: " . $chagzmanim[4] . "<br/>";}
+    //if ($chagzmanim[4]) {echo "Preparation: " . $chagzmanim[4] . "<br/>";}
     if ($chagzmanim[3]) {echo "Notes: " . $chagzmanim[3] . "<br/>";}
     if ($chagzmanim[5]) {echo "Havdallah: " . $chagzmanim[5] . "<br/>";}
     echo "Shkia: " . $chaginfo[3] . "<br/>";
@@ -827,29 +903,26 @@ echo "<h3>Tzom Tammuz - " . $chaginfo[1] . " " . $chagdate . "</h3>";
     if ($chagzmanim[6]) {echo "Motzei Chag: " . $chagzmanim[6] . "<br/>";}
 //end day print info
 
+// get Tisha B'av - 9 Av
+$monthname = "Av";
+$daynum = "08";
+//dayseq 0 = erev, 1=1st day, 2=2nd day, 3=3rd day
+$dayseq = 0;
+$times = gettimes($hebyear, $monthname, $daynum, $dayseq, $latitude, $longitude, $geostring, $tzid);
+$chagdate = $times[0];
+$chaginfo = $times[1];
+$chagzmanim = $times[2];
+$zmanurl = $times[3];
+
+//print day info here
 if ($debug == 1) { 
     printdebug($chaginfo, $chagzmanim, $zmanurl); 
     }
 
-// // get Tisha B'av - 9 Av
-$monthname = "Av";
-$daynum = "09";
-$zmanurl = "https://www.hebcal.com/converter?cfg=json&hy=$hebyear&hm=$monthname&hd=$daynum&h2g=1";
-$get_zmanim = callAPI('GET', $zmanurl, false);
-$zmanresponse = json_decode($get_zmanim, true);
-$chagdate = date('Y-m-d', mktime(0,0,0,$zmanresponse['gm'],$zmanresponse['gd'],$zmanresponse['gy']));    
-//Erev is chagdate - 1
-$erev = date('Y-m-d', strtotime( $chagdate . " -1 days"));
-//get times
-$chagdone = 0;
-$chaginfo = getzmanim($erev, $latitude, $longitude, $geostring, $tzid);
-    $chagerevdownum = $chaginfo[0];
-$chagzmanim = chagzmanim($chaginfo[0], $chagerevdownum, $chaginfo[3], $chagdone);
-
-//print day info here
-echo "<h3>Erev Tisha B'Av - " . $chaginfo[1] . " " . $erev . "</h3>";
+echo "<h3>Erev Tisha B'Av - " . $chaginfo[1] . " " . $chagdate . "</h3>";
     echo "Netz: " . $chaginfo[2] . "<br/>";
-    echo "Sof Zman Kria Shema: " . $$chaginfo[10] . "<br/>";
+    echo "Sof Kria Shema: " . $chaginfo[10] . "<br/>";
+    echo "Ashrei: " . $chagzmanim[2] . "<br/>";
     echo "Mincha: " . $chagzmanim[0] . "<br/>";
     echo "Arvit: " . $chagzmanim[1] . "<br/>";
     echo "Candles: " . $chagzmanim[2] . "<br/>";
@@ -861,20 +934,26 @@ echo "<h3>Erev Tisha B'Av - " . $chaginfo[1] . " " . $erev . "</h3>";
     if ($chagzmanim[6]) {echo "Motzei Chag: " . $chagzmanim[6] . "<br/>";}
 //end day print info
 
+//Tisha B'Av day - 9 Av
+$monthname = "Av";
+$daynum = "09";
+//dayseq 0 = erev, 1=1st day, 2=2nd day, 3=3rd day
+$dayseq = 1;
+$times = gettimes($hebyear, $monthname, $daynum, $dayseq, $latitude, $longitude, $geostring, $tzid);
+$chagdate = $times[0];
+$chaginfo = $times[1];
+$chagzmanim = $times[2];
+$zmanurl = $times[3];
+
+//print day info here
 if ($debug == 1) { 
     printdebug($chaginfo, $chagzmanim, $zmanurl); 
     }
 
-//Tisha B'Av day - 9 Av
-//get times
-$chagdone = 1;
-$chaginfo = getzmanim($erev, $latitude, $longitude, $geostring, $tzid);
-$chagzmanim = chagzmanim($chaginfo[0], $chagerevdownum, $chaginfo[3], $chagdone);
-
-//print day info here
 echo "<h3>Tisha B'Av - " . $chaginfo[1] . " " . $erev . "</h3>";
     echo "Netz: " . $chaginfo[2] . "<br/>";
-    echo "Sof Zman Kria Shema: " . $$chaginfo[10] . "<br/>";
+    echo "Sof Kria Shema: " . $chaginfo[10] . "<br/>";
+    echo "Ashrei: " . $chagzmanim[2] . "<br/>";
     echo "Mincha: " . $chagzmanim[0] . "<br/>";
     echo "Arvit: " . $chagzmanim[1] . "<br/>";
     //echo "Candles: " . $chagzmanim[2] . "<br/>";
@@ -886,10 +965,6 @@ echo "<h3>Tisha B'Av - " . $chaginfo[1] . " " . $erev . "</h3>";
     if ($chagzmanim[6]) {echo "Motzei Chag: " . $chagzmanim[6] . "<br/>";}
 //end day print info
 
-if ($debug == 1) { 
-    printdebug($chaginfo, $chagzmanim, $zmanurl); 
-    }
-
 //close out the web page
 echo "</table>
 <P>NOTE: Times are calculated automatically based on the location informatin provided. Because zip codes can cover a large area; and because of variations in things like the source of sunrise/sunset, height of elevation, rounding seconds to minutes, etc. times may be off by as much as 2 minutes. Please plan accordingly.</P>
@@ -897,6 +972,19 @@ echo "</table>
 </html>";
 
 //Function Junction
+function gettimes($hebyear, $monthname, $daynum, $dayseq, $latitude, $longitude, $geostring, $tzid) {
+    $zmanurl = "https://www.hebcal.com/converter?cfg=json&hy=$hebyear&hm=$monthname&hd=$daynum&h2g=1";
+    $get_zmanim = callAPI('GET', $zmanurl, false);
+    $zmanresponse = json_decode($get_zmanim, true);
+    $chagdate = date('Y-m-d', mktime(0,0,0,$zmanresponse['gm'],$zmanresponse['gd'],$zmanresponse['gy']));
+    $chagerevdownum = date('w', strtotime( $chagdate . " -" . $dayseq . " days"));
+    $chagdownum = date('w', strtotime($chagdate));
+    if ($dayseq == 2) {$chagdone = 1;}
+    $chaginfo = getzmanim($chagdate, $latitude, $longitude, $geostring, $tzid);
+    $chagzmanim = chagzmanim($chaginfo[0], $chagerevdownum, $chaginfo[3], $chagdone, $dayseq);
+    return [$chagdate, $chaginfo, $chagzmanim, $zmanurl];
+}
+
 function getzmanim($chagdate, $latitude, $longitude, $geostring, $tzid){
     //set timezone offset
     $tz = new DateTimeZone($tzid);
@@ -918,7 +1006,6 @@ if(strtotime($chagshkia) <= strtotime("7:35pm")) {
         $isearly=1;
     }
 
-//ADJUST THIS with logic for what DOW and chag type it is (if shabbat, if chag, etc.)
     //SIMPLE CALCULATIONS
     // tzet hakochavim = shkia + 45
     // early Motzi Shabbat is the same as tzet
@@ -943,9 +1030,11 @@ if(strtotime($chagshkia) <= strtotime("7:35pm")) {
 return [$chagdownum, $chagdowname, $chagnetz, $chagshkia, $chagtzet, $latemotzei, $chagalot, $chagshaa, $chagminchaged, $chagminchket, $chagshema, $chagplag, $isearly];
 }
 
-function chagzmanim($chagdownum, $chagerevdownum, $chagshkia, $chagdone) {
+function chagzmanim($chagdownum, $chagerevdownum, $chagshkia, $chagdone, $dayseq) {
+//prep needs to be added for ALL day 1 - shkia+45 
+
 // set defaults
-    $chagmincha = date('g:ia', strtotime( $chagshkia . " -20 minutes"));
+    $chagmincha = date('g:ia', strtotime( $chagshkia . " -23 minutes"));
     $chagminchamath = "shkia-20";
     $chagarvit = "to follow";
     $chagcandles = date('g:ia', strtotime( $chagshkia . " -18 minutes"));
@@ -960,18 +1049,22 @@ function chagzmanim($chagdownum, $chagerevdownum, $chagshkia, $chagdone) {
         $chagmotzeimath = "shkia+45";
     }
 
+//if it's between day 1 and 2
+    if ($dayseq == 1) {
+        $chagprep = "Candles, prep, etc no earlier than $chagmotzei";
+        $chagcandles = "";
+}
+
 //if erev is Wednesday
 if ($chagerevdownum == 4) {
     if ($chagdownum == 4) {
         $chagextras = "Remember to make an Erev Tavshillin!";
     }
     if ($chagdownum == 5) {
-        $chagcandles = date('g:ia', strtotime( $chagshkia . " +45 minutes"));
-        $chagcandlemath = "shkia+45";
-        $chagprep = "Preparations no earlier than " . $chagcandles;
+        $chagprep = "Candles, Prep, etc. no earlier than " . $date('g:ia', strtotime( $chagshkia . " +45 minutes"));
     }
     if ($chagdownum == 6) {
-        $chagprep = "Preparations no earlier than " . $chagcandles;
+        $chagprep = "Candles, Prep, etc. no earlier than " . $date('g:ia', strtotime( $chagshkia . " +45 minutes"));
     }
 }
 
@@ -981,14 +1074,11 @@ if ($chagerevdownum == 5) {
         $chagextras = "Remember to make an Erev Tavshillin!";
     }
     if ($chagdownum == 6) {
-        $chagcandles = date('g:ia', strtotime( $chagshkia . " +45 minutes"));
-        $chagcandlemath = "shkia+45";
-        $chagprep = "Preparations no earlier than " . $chagcandles;
+        $chagprep = "Candles, Prep, etc. no earlier than " . $date('g:ia', strtotime( $chagshkia . " +45 minutes"));
     }
     if ($chagdownum == 7) {
         $chagarvit = date('g:ia', strtotime( $chagshkia . " +50 minutes"));
         $chagarvitmath = "shkia+50";
-        $chagprep = "Preparations no earlier than " . $chagcandles;
         $chagmotzei = date('g:ia', strtotime( $chagshkia . " +50 minutes")) . " / " . date('g:ia', strtotime( $chagshkia . " +72 minutes"));
         $chagmotzeimath = "shkia+50/72";
     }
@@ -1001,19 +1091,25 @@ if ($chagerevdownum == 6) {
         $chagmincha = date('g:ia' , strtotime("2:30pm"));
         $chagminchamath = "2:30pm";
         $havdallah = "said in kiddush";
-        $chagcandles = $chagcandles = date('g:ia', strtotime( $chagshkia . " +50 minutes")) . " / " . date('g:ia', strtotime( $chagshkia . " +72 minutes"));
         $chagcandlemath = "shkia+50/72";
-        $chagprep = "Preparations no earlier than " . $chagcandles = date('g:ia', strtotime( $chagshkia . " +50 minutes")) . " / " . date('g:ia', strtotime( $chagshkia . " +72 minutes"));
+        $chagprep = "Preparations no earlier than " . date('g:ia', strtotime( $chagshkia . " +50 minutes")) . " / " . date('g:ia', strtotime( $chagshkia . " +72 minutes"));
     }
     if ($chagdownum == 0) {
+        $havdallah = "wine, hamavdil";
     }
 }
 
 //if erev is Saturday
 if ($chagerevdownum == 7) {
     if ($chagdownum == 7) {
+        $chagmincha = date('g:ia' , strtotime("2:30pm"));
+        $chagminchamath = "2:30pm";
+        $havdallah = "said in kiddush";
+        $chagcandlemath = "shkia+50/72";
+        $chagprep = "Candles, prep, etc. no earlier than " . date('g:ia', strtotime( $chagshkia . " +50 minutes")) . " / " . date('g:ia', strtotime( $chagshkia . " +72 minutes"));
     }
     if ($chagdownum == 0) {
+        $chagprep = "Candles, Prep, etc. no earlier than " . $date('g:ia', strtotime( $chagshkia . " +45 minutes"));
     }
     if ($chagdownum == 1) {
     }
@@ -1051,7 +1147,7 @@ function printdebug(&$chaginfo, &$chagzmanim, $zmanurl) {
     // $chagmotzeimath = $chagzmanim[10];
 
     echo "*********************************<br>";
-    echo "<h3>Debug and Detailed information</h3><br>";
+    echo "<h3>Debug and Detailed information</h3>";
     echo "zmanurl:" . $zmanurl . "<br/>";
     echo "Day: " . $chaginfo[1] . "<br/>";
     echo "Day #: " . $chaginfo[0] . "<br/>";
